@@ -262,13 +262,15 @@ export default {
     },
     Progress() {
       console.log(Math.round(+this.TotalResult));
-      this.interval = setInterval(() => {
-        if (this.value === Math.round(+this.TotalResult) || 0) {
-          this.ShowAppreciations = true;
-          return (this.value = Math.round(+this.TotalResult) || 0);
-        }
-        this.value += 1;
-      }, 100);
+      if (Math.round(+this.TotalResult) !== NAN) {
+        this.interval = setInterval(() => {
+          if (this.value === Math.round(+this.TotalResult) || 0) {
+            this.ShowAppreciations = true;
+            return (this.value = Math.round(+this.TotalResult) || 0);
+          }
+          this.value += 1;
+        }, 100);
+      }
     },
     handleAppreciations(Data) {
       this.Appreciations = Data;
