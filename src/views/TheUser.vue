@@ -262,7 +262,7 @@ export default {
     },
     Progress() {
       console.log(Math.round(+this.TotalResult));
-      if (Math.round(+this.TotalResult) !== NAN) {
+      if (!isNaN(Math.round(+this.TotalResult))) {
         this.interval = setInterval(() => {
           if (this.value === Math.round(+this.TotalResult) || 0) {
             this.ShowAppreciations = true;
