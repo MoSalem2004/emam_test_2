@@ -236,6 +236,12 @@
     نتائج أخري ( غير تابعة لفرقتك الدراسية )
   </div>
   <div class="contain">
+    <img
+      src="../assets/animation_lolk2w1w_small.gif"
+      alt=""
+      style="width: 100px; margin: auto"
+      v-if="ShowImg"
+    />
     <div v-if="ShowMyResult2" class="Msg">لا توجد نتائج لك</div>
     <div class="box border p-2.5" v-for="Result in Results_2" :key="Result">
       <div>{{ Result.Type }}</div>

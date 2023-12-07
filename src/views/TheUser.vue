@@ -130,7 +130,7 @@
                 font-weight: bold !important;
               "
             >
-              {{ value }} %
+              {{ value || 0 }} %
             </div>
           </template>
         </v-progress-circular>
