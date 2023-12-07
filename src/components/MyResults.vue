@@ -1,5 +1,5 @@
 <template>
-  <div class="contain flex my-7 gap-2.5 flex-wrap" style="min-height: 100px">
+  <div class="contain flex my-7 gap-2.5 flex-wrap">
     <img
       src="../assets/animation_lolk2w1w_small.gif"
       alt=""
@@ -480,8 +480,12 @@ export default {
   text-align: center;
   margin: 10px auto;
   border-radius: 5px;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 @media (min-width: 1200px) {
 }
