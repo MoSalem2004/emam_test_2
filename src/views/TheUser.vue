@@ -1,180 +1,190 @@
 <template>
-  <div class="container relative" style="margin-top: 175px">
-    <div
-      v-show="ShowAppreciations"
-      v-if="Ranking"
-      class="ranking flex items-center gap-2.5"
-      style="
-        position: absolute;
-        left: 30px;
-        background: #fafafa;
-        padding: 10px;
-        border-radius: 5px;
-        color: var(--main-color);
-        font-weight: bold;
-      "
-    >
-      <font-awesome-icon :icon="['fas', 'trophy']" color="gold" v-if="index1" />
-      <font-awesome-icon
-        :icon="['fas', 'trophy']"
-        color="silver"
-        v-if="index2"
-      />
-      <font-awesome-icon
-        :icon="['fas', 'trophy']"
-        color="#c77b30"
-        v-if="index3"
-      />
-      <font-awesome-icon v-if="top10" :icon="['fas', 'medal']" color="gold" />
-      <div>الترتيب</div>
-      <div>
-        {{ Ranking }}
-      </div>
-    </div>
-    <div
-      class="title flex items-center gap-2.5 mb-5"
-      style="
-        font-size: 30px;
-        color: var(--main-color);
-        font-weight: bold;
-        font-family: system-ui;
-      "
-    >
-      <font-awesome-icon :icon="['fas', 'id-card']" />
-      <span>حسابي</span>
-    </div>
-    <div class="User_file flex items-center">
+  <div class="TheUser" style="margin-top: 137px">
+    <div class="container relative">
       <div
-        class="data w-1/2 flex flex-col gap-2.5"
-        style="background: #fafafa; padding: 10px; border-radius: 5px"
+        v-show="ShowAppreciations"
+        v-if="Ranking"
+        class="ranking flex items-center gap-2.5"
+        style="
+          position: absolute;
+          left: 30px;
+          background: #fafafa;
+          padding: 10px;
+          border-radius: 5px;
+          color: var(--main-color);
+          font-weight: bold;
+        "
       >
-        <div
-          class="name"
-          style="
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #fff;
-          "
-        >
-          <font-awesome-icon :icon="['fas', 'user-graduate']" />
-          <span>
-            {{ AllName }}
-          </span>
-        </div>
-        <div
-          class="phone flex items-center gap-2.5"
-          style="
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #fff;
-          "
-        >
-          <font-awesome-icon icon="fa-solid fa-phone" />
-          <span>{{ phone }}</span>
-        </div>
-        <div
-          class="phone flex items-center gap-2.5"
-          style="
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #fff;
-          "
-        >
-          <font-awesome-icon :icon="['fas', 'at']" />
-          <span>{{ email }}</span>
-        </div>
-        <div
-          class="location flex items-center gap-2.5"
-          style="
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #fff;
-          "
-        >
-          <font-awesome-icon :icon="['fas', 'location-dot']" />
-          <span>{{ college_place }}</span>
-        </div>
-        <div
-          class="class flex items-center gap-2.5"
-          style="
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #fff;
-          "
-        >
-          <font-awesome-icon :icon="['fas', 'chalkboard-user']" />
-          <span>{{ Class }} - {{ Lang }}</span>
+        <font-awesome-icon
+          :icon="['fas', 'trophy']"
+          color="gold"
+          v-if="index1"
+        />
+        <font-awesome-icon
+          :icon="['fas', 'trophy']"
+          color="silver"
+          v-if="index2"
+        />
+        <font-awesome-icon
+          :icon="['fas', 'trophy']"
+          color="#c77b30"
+          v-if="index3"
+        />
+        <font-awesome-icon v-if="top10" :icon="['fas', 'medal']" color="gold" />
+        <div>الترتيب</div>
+        <div>
+          {{ Ranking }}
         </div>
       </div>
       <div
-        class="text-center w-1/2 flex flex-col gap-2.5"
-        style="justify-content: center; align-items: center"
+        class="title flex items-center gap-2.5 mb-5"
+        style="
+          font-size: 30px;
+          color: var(--main-color);
+          font-weight: bold;
+          font-family: system-ui;
+        "
       >
-        <v-progress-circular
-          :rotate="360"
-          :size="100"
-          :width="15"
-          :model-value="value"
-          style="color: var(--main-color) !important"
-        >
-          <template v-slot:default>
-            <div
-              style="
-                font-size: 20px !important;
-                color: var(--main-color) !important;
-                font-weight: bold !important;
-              "
-            >
-              {{ value || 0 }} %
-            </div>
-          </template>
-        </v-progress-circular>
+        <font-awesome-icon :icon="['fas', 'id-card']" />
+        <span>حسابي</span>
+      </div>
+      <div class="User_file flex items-center">
         <div
-          style="
-            background: #fafafa;
-            width: 100px;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 20px;
-            min-height: 42px;
-          "
-          class="ranking"
+          class="data w-1/2 flex flex-col gap-2.5"
+          style="background: #fafafa; padding: 10px; border-radius: 5px"
         >
           <div
-            v-show="ShowAppreciations"
-            style="font-size: 20px; font-weight: bold; color: var(--main-color)"
+            class="name"
+            style="
+              padding: 10px;
+              border-radius: 5px;
+              font-weight: bold;
+              background: #fff;
+            "
           >
-            {{ Appreciations }}
+            <font-awesome-icon :icon="['fas', 'user-graduate']" />
+            <span>
+              {{ AllName }}
+            </span>
+          </div>
+          <div
+            class="phone flex items-center gap-2.5"
+            style="
+              padding: 10px;
+              border-radius: 5px;
+              font-weight: bold;
+              background: #fff;
+            "
+          >
+            <font-awesome-icon icon="fa-solid fa-phone" />
+            <span>{{ phone }}</span>
+          </div>
+          <div
+            class="phone flex items-center gap-2.5"
+            style="
+              padding: 10px;
+              border-radius: 5px;
+              font-weight: bold;
+              background: #fff;
+            "
+          >
+            <font-awesome-icon :icon="['fas', 'at']" />
+            <span>{{ email }}</span>
+          </div>
+          <div
+            class="location flex items-center gap-2.5"
+            style="
+              padding: 10px;
+              border-radius: 5px;
+              font-weight: bold;
+              background: #fff;
+            "
+          >
+            <font-awesome-icon :icon="['fas', 'location-dot']" />
+            <span>{{ college_place }}</span>
+          </div>
+          <div
+            class="class flex items-center gap-2.5"
+            style="
+              padding: 10px;
+              border-radius: 5px;
+              font-weight: bold;
+              background: #fff;
+            "
+          >
+            <font-awesome-icon :icon="['fas', 'chalkboard-user']" />
+            <span>{{ Class }} - {{ Lang }}</span>
+          </div>
+        </div>
+        <div
+          class="text-center w-1/2 flex flex-col gap-2.5"
+          style="justify-content: center; align-items: center"
+        >
+          <v-progress-circular
+            :rotate="360"
+            :size="100"
+            :width="15"
+            :model-value="value"
+            style="color: var(--main-color) !important"
+          >
+            <template v-slot:default>
+              <div
+                style="
+                  font-size: 20px !important;
+                  color: var(--main-color) !important;
+                  font-weight: bold !important;
+                "
+              >
+                {{ value || 0 }} %
+              </div>
+            </template>
+          </v-progress-circular>
+          <div
+            style="
+              background: #fafafa;
+              width: 100px;
+              padding: 5px;
+              border-radius: 5px;
+              font-size: 20px;
+              min-height: 42px;
+            "
+            class="ranking"
+          >
+            <div
+              v-show="ShowAppreciations"
+              style="
+                font-size: 20px;
+                font-weight: bold;
+                color: var(--main-color);
+              "
+            >
+              {{ Appreciations }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="flex gap-2.5 justify-between All_Btn my-5">
-      <div
-        class="All_Result bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0 active"
-        @click="CloseTogell_2"
-      >
-        نتائجي
+      <div class="flex gap-2.5 justify-between All_Btn my-5">
+        <div
+          class="All_Result bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0 active"
+          @click="CloseTogell_2"
+        >
+          نتائجي
+        </div>
+        <div
+          class="All_Courses bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0"
+          @click="CloseTogell_1"
+        >
+          كورساتي
+          <!-- FawryPay Checkout Button -->
+        </div>
       </div>
-      <div
-        class="All_Courses bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0"
-        @click="CloseTogell_1"
-      >
-        كورساتي
-        <!-- FawryPay Checkout Button -->
-      </div>
+      <MyCourse v-if="close_1" />
+      <MyResults
+        v-if="close_2"
+        @TotalResultFunction="handleTotalResult"
+        @AppreciationsFunction="handleAppreciations"
+      />
     </div>
-    <MyCourse v-if="close_1" />
-    <MyResults
-      v-if="close_2"
-      @TotalResultFunction="handleTotalResult"
-      @AppreciationsFunction="handleAppreciations"
-    />
   </div>
 </template>
 <script>
@@ -501,6 +511,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.TheUser {
+  background-image: url("../assets/WhatsApp Image 2023-12-04 at 11.00.58 PM.jpeg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+}
 .v-progress-circular__overlay {
   color: var(--main-color) !important;
 }
@@ -535,6 +551,9 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .TheUser {
+    margin-top: 105px !important;
+  }
   .User_file {
     flex-direction: column-reverse;
     gap: 25px;
