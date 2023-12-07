@@ -1,5 +1,33 @@
 <template>
-  <div class="container" style="margin-top: 175px">
+  <div class="container relative" style="margin-top: 175px">
+    <div
+      v-show="ShowAppreciations"
+      v-if="Ranking"
+      class="ranking flex items-center gap-2.5"
+      style="
+        position: absolute;
+        left: 30px;
+        background: #fafafa;
+        padding: 10px;
+        border-radius: 5px;
+        color: var(--main-color);
+        font-weight: bold;
+      "
+    >
+      <font-awesome-icon :icon="['fas', 'trophy']" color="gold" v-if="index1" />
+      <font-awesome-icon
+        :icon="['fas', 'trophy']"
+        color="silver"
+        v-if="index2"
+      />
+      <font-awesome-icon
+        :icon="['fas', 'trophy']"
+        color="#c77b30"
+        v-if="index3"
+      />
+      <font-awesome-icon v-if="top10" :icon="['fas', 'medal']" color="gold" />
+      {{ Ranking }}
+    </div>
     <div
       class="title flex items-center gap-2.5 mb-5"
       style="
@@ -86,10 +114,47 @@
           <span>{{ Class }} - {{ Lang }}</span>
         </div>
       </div>
-      <div class="result w-1/2 flex items-center justify-center flex-col">
-        <div>{{ TotalResult || 0 }}%</div>
-        <div>{{ Appreciations }}</div>
-        <div>{{ Ranking }}</div>
+      <div
+        class="text-center w-1/2 flex flex-col gap-2.5"
+        style="justify-content: center; align-items: center"
+      >
+        <v-progress-circular
+          :rotate="360"
+          :size="100"
+          :width="15"
+          :model-value="value"
+          style="color: var(--main-color) !important"
+        >
+          <template v-slot:default>
+            <div
+              style="
+                font-size: 20px !important;
+                color: var(--main-color) !important;
+                font-weight: bold !important;
+              "
+            >
+              {{ value }} %
+            </div>
+          </template>
+        </v-progress-circular>
+        <div
+          style="
+            background: #fafafa;
+            width: 100px;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 20px;
+            min-height: 42px;
+          "
+          class="ranking"
+        >
+          <div
+            v-show="ShowAppreciations"
+            style="font-size: 20px; font-weight: bold; color: var(--main-color)"
+          >
+            {{ Appreciations }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="flex gap-2.5 justify-between">
@@ -150,9 +215,13 @@ export default {
     MyCourse,
     MyResults,
   },
+
   mounted() {
     this.GetData();
     this.State();
+  },
+  beforeUnmount() {
+    clearInterval(this.interval);
   },
   data() {
     return {
@@ -173,15 +242,32 @@ export default {
       TypeOfClass: "",
       User: "",
       ShowImg: true,
+      interval: 0,
+      value: 0,
+      ShowAppreciations: null,
+      index1: null,
+      index2: null,
+      index3: null,
+      top10: null,
     };
   },
   methods: {
+    Progress() {
+      console.log(+this.TotalResult);
+      this.interval = setInterval(() => {
+        if (this.value === +this.TotalResult || 0) {
+          this.ShowAppreciations = true;
+          return (this.value = +this.TotalResult || 0);
+        }
+        this.value += 1;
+      }, 100);
+    },
     handleAppreciations(Data) {
       this.Appreciations = Data;
     },
     async handleTotalResult(Data) {
       this.TotalResult = Data;
-
+      this.Progress();
       const studentsCollection = collection(db, "الطلاب");
       const querySnapshot = await getDocs(studentsCollection);
       const documentRef = doc(db, "الطلاب", localStorage.getItem("userid"));
@@ -200,38 +286,85 @@ export default {
           array.push(doc.data().AllResults);
         }
       });
-
+      console.log(array);
       const filteredArray = array.filter((element) => element !== undefined);
       const sortedArray = filteredArray.sort((a, b) => b - a);
       const top10Elements = sortedArray.slice(0, 10);
-      querySnapshot.forEach((doc) => {
-        if (
-          top10Elements.includes(doc.data().AllResults) &&
-          doc.data().userid === localStorage.getItem("userid")
-        ) {
-          if (top10Elements.indexOf(doc.data().AllResults) + 1 === 1) {
-            this.Ranking = "الأول";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 2) {
-            this.Ranking = "الثاني";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 3) {
-            this.Ranking = "الثالث";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 4) {
-            this.Ranking = "الرابع";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 5) {
-            this.Ranking = "الخامس";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 6) {
-            this.Ranking = "السادس";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 7) {
-            this.Ranking = "السابع";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 8) {
-            this.Ranking = "الثامن";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 9) {
-            this.Ranking = "التاسع";
-          } else if (top10Elements.indexOf(doc.data().AllResults) + 1 === 10) {
-            this.Ranking = "العاشر";
-          }
+      // إنشاء مصفوفة مكونة من كائنات تحتوي على القيم والفهارس الأصلية
+      const indexedArray = top10Elements.map((value, index) => ({
+        value,
+        originalIndex: index,
+      }));
+
+      // تجميع العناصر المتكررة في مصفوفة جديدة
+      const ReducedArray = indexedArray.reduce((acc, item) => {
+        const existingItem = acc.find((i) => i.value === item.value);
+        if (existingItem) {
+          existingItem.originalIndexes.push(item.originalIndex);
+        } else {
+          acc.push({
+            value: item.value,
+            originalIndexes: [item.originalIndex],
+          });
         }
+        return acc;
+      }, []);
+
+      // فرز المصفوفة المجمعة بناءً على القيم ومواقع الفهارس
+      ReducedArray.sort((a, b) => {
+        if (a.value === b.value) {
+          return a.originalIndexes[0] - b.originalIndexes[0];
+        }
+        return b.value - a.value;
       });
+
+      // عرض العناصر المفرزة للمستخدم مع رقم الفهرس
+      ReducedArray.forEach((item, index) => {
+        item.originalIndexes.forEach((originalIndex) => {
+          console.log(
+            `المركز ${index + 1}: القيمة ${item.value}, الفهرس ${originalIndex}`
+          );
+          console.log("this.TotalResult =>", this.TotalResult);
+          console.log("tem.value=>", item.value);
+          if (this.TotalResult === item.value) {
+            if (index + 1 === 1) {
+              this.Ranking = index + 1;
+              this.index1 = true;
+              this.top10 = true;
+            } else if (index + 1 === 2) {
+              this.Ranking = index + 1;
+              this.index2 = true;
+              this.top10 = true;
+            } else if (index + 1 === 3) {
+              this.Ranking = index + 1;
+              this.index3 = true;
+              this.top10 = true;
+            }
+            // else if (index + 1 === 4) {
+            //   this.Ranking = "الرابع";
+            // } else if (index + 1 === 5) {
+            //   this.Ranking = "الخامس";
+            // } else if (index + 1 === 6) {
+            //   this.Ranking = "السادس";
+            // } else if (index + 1 === 7) {
+            //   this.Ranking = "السابع";
+            // } else if (index + 1 === 8) {
+            //   this.Ranking = "الثامن";
+            // } else if (index + 1 === 9) {
+            //   this.Ranking = "التاسع";
+            // } else if (index + 1 === 10) {
+            //   this.Ranking = "العاشر";
+            // }
+            else {
+              // this.index1 = false;
+              // this.index2 = true;
+              this.top10 = true;
+              this.Ranking = index + 1;
+            }
+          }
+        });
+      });
+      console.log(ReducedArray);
     },
     CloseTogell_1() {
       this.close_1 = true;
@@ -349,8 +482,40 @@ export default {
       });
       // setTimeout(() => {
       this.handleTotalResult();
+
       // }, 1000);
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+.v-progress-circular__overlay {
+  color: var(--main-color) !important;
+}
+.v-progress-circular {
+  margin: 1rem;
+}
+.ranking {
+  transition: 0.3s;
+}
+.v-progress-circular__content {
+  font-size: 20px !important;
+  color: var(--main-color) !important;
+  font-weight: bold !important;
+}
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+}
+
+@media (max-width: 767px) {
+  .User_file {
+    flex-direction: column-reverse;
+    gap: 25px;
+    & > div {
+      width: 100%;
+    }
+  }
+}
+</style>
