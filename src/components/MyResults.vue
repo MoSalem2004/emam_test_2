@@ -1,7 +1,14 @@
 <template>
-  <div class="contain flex my-5 gap-2.5 flex-wrap">
+  <div class="contain flex my-7 gap-2.5 flex-wrap" style="min-height: 100px">
+    <img
+      src="../assets/animation_lolk2w1w_small.gif"
+      alt=""
+      style="width: 100px; margin: auto"
+      v-if="ShowImg"
+    />
+    <div v-if="ShowMyResult1" class="Msg">لا توجد نتائج لك</div>
     <div
-      class="box border p-2.5 Main_Box w-32"
+      class="box border p-2.5 Main_Box w-32 rounded"
       v-for="(Subject, index) in Subjects"
       :key="Subject"
     >
@@ -89,34 +96,109 @@
         class="main_Overlay"
         v-if="ShowResult"
         @click="ShowResultFunction"
+        style="z-index: 101"
       ></div>
       <div
         class="bg-white fixed z-10 rounded p-2.5 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 max-h-90 overflow-auto container"
         v-show="ShowResult"
+        style="z-index: 101"
       >
-        <div class="text-left p-2.5">
+        <div
+          class="text-left p-2.5"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            font-size: 23px;
+            font-weight: bold;
+            color: var(--main-color);
+            background: #fafafa;
+            border-radius: 5px;
+            margin-bottom: 20px;
+          "
+        >
+          <div>تفاصيل النتائج</div>
           <font-awesome-icon
             :icon="['fas', 'xmark']"
             @click="ShowResultFunction"
           />
         </div>
-        <div class="feat">
+        <div class="contain flex flex-wrap gap-2.5">
           <div
-            class="test border p-2.5"
-            v-for="Result in Results_1"
+            class="test border p-2.5 w-32 flex flex-wrap"
+            v-for="(Result, index) in Results_1"
             :key="Result"
           >
-            <div class="flex justify-between items-center">
-              <div>اختبار رقم ( {{ Result.TestNumber }})</div>
-              <div>
-                <div>{{ Result.percent }}%</div>
-                <div>{{ Result.appreciation }}</div>
+            <div class="flex justify-between flex-col w-1/2">
+              <div
+                style="
+                  font-size: 18px;
+                  font-weight: bold;
+                  color: var(--main-color);
+                "
+              >
+                اختبار رقم ( {{ Result.TestNumber }})
               </div>
             </div>
-            <div class="flex justify-between items-center">
-              <div>{{ Result.result }}/{{ Result.Allresult }}</div>
+            <div class="flex justify-between items-center flex-col w-1/2">
+              <v-progress-circular
+                :rotate="360"
+                :size="100"
+                :width="15"
+                :model-value="value_1[index]"
+                style="color: var(--main-color) !important"
+              >
+                <template v-slot:default>
+                  <div
+                    class="value"
+                    style="
+                      font-size: 20px !important;
+                      color: var(--main-color) !important;
+                      font-weight: bold !important;
+                    "
+                  >
+                    <span>{{ value_1[index] }}</span> %
+                  </div>
+                </template>
+              </v-progress-circular>
+              <div
+                style="
+                  background: rgb(250, 250, 250);
+                  width: 99px;
+                  padding: 4px;
+                  border-radius: 5px;
+                  font-size: 17px;
+                  min-height: 38px;
+                  transition: all 0.3s ease 0s;
+                  text-align: center;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-weight: bold;
+                  color: var(--main-color);
+                  margin-top: 20px;
+                "
+              >
+                {{ Result.appreciation }}
+              </div>
             </div>
-            <div class="flex justify-between items-center">
+            <div
+              class="w-100"
+              style="
+                font-size: 13px;
+                font-weight: bold;
+                color: rgb(105, 105, 105);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                background: #fafafa;
+                padding: 5px;
+                margin-top: 15px;
+                border-radius: 5px;
+              "
+            >
+              <font-awesome-icon :icon="['fas', 'clock']" />
               <div>
                 {{
                   new Date(Result.Time.toMillis()).toLocaleString(["ar"], {
@@ -130,23 +212,43 @@
                 }}
               </div>
             </div>
+            <div class="flex justify-between items-center"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div>نتائج أخري ( غير تابعة لفرقتك الدراسية )</div>
-  <div class="box border p-2.5" v-for="Result in Results_2" :key="Result">
-    <div>{{ Result.Type }}</div>
-    <div>{{ Result.Class }}</div>
-    <div>{{ Result.Lang }}</div>
-    <div>{{ Result.Sub }}</div>
-    <div>{{ Result.result }}/{{ Result.Allresult }}</div>
-    <div class="flex justify-between items-center">
-      <div>اختبار رقم ( {{ Result.TestNumber }})</div>
-      <div>
-        <div>{{ Result.percent }}%</div>
-        <div>{{ Result.appreciation }}</div>
+  <div
+    style="
+      width: 100%;
+      border: 1px solid var(--main-color);
+      height: 53px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      background: linear-gradient(-45deg, #075e55, white);
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--main-color);
+    "
+  >
+    نتائج أخري ( غير تابعة لفرقتك الدراسية )
+  </div>
+  <div class="contain">
+    <div v-if="ShowMyResult2" class="Msg">لا توجد نتائج لك</div>
+    <div class="box border p-2.5" v-for="Result in Results_2" :key="Result">
+      <div>{{ Result.Type }}</div>
+      <div>{{ Result.Class }}</div>
+      <div>{{ Result.Lang }}</div>
+      <div>{{ Result.Sub }}</div>
+      <div>{{ Result.result }}/{{ Result.Allresult }}</div>
+      <div class="flex justify-between items-center">
+        <div>اختبار رقم ( {{ Result.TestNumber }})</div>
+        <div>
+          <div>{{ Result.percent }}%</div>
+          <div>{{ Result.appreciation }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -179,7 +281,12 @@ export default {
       TotalResult: "",
       Appreciations: "",
       interval: [],
+      interval_1: [],
       value: [],
+      value_1: [],
+      ShowImg: true,
+      ShowMyResult1: null,
+      ShowMyResult2: null,
     };
   },
   mounted() {
@@ -301,6 +408,20 @@ export default {
           console.log(Array);
         }
       }
+      for (let i = 0; i < this.Results_1.length; i++) {
+        this.interval_1[i] = 0;
+        this.value_1[i] = 0;
+        console.log(this.interval_1[i]);
+        console.log(typeof +this.Results_1[i].percent);
+        this.interval_1[i] = setInterval(() => {
+          if (this.value_1[i] === Math.round(+this.Results_1[i].percent) || 0) {
+            this.ShowAppreciations = true;
+            return (this.value_1[i] =
+              Math.round(+this.Results_1[i].percent) || 0);
+          }
+          this.value_1[i] += 1;
+        }, 100);
+      }
     },
     ShowResultFunction() {
       this.ShowResult = !this.ShowResult;
@@ -339,12 +460,29 @@ export default {
           this.Results_2.push(docData.resultes[i]);
         }
       }
+      if (this.Subjects.length === 0) {
+        this.ShowMyResult1 = true;
+      }
+      if (this.Results_2.length === 0) {
+        this.ShowMyResult2 = true;
+      }
+
       this.Progress();
+      this.ShowImg = false;
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+.Msg {
+  background: #fafafa;
+  padding: 10px;
+  text-align: center;
+  margin: 10px auto;
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--main-color);
+}
 @media (min-width: 1200px) {
 }
 
@@ -354,7 +492,7 @@ export default {
 @media (max-width: 767px) {
   .contain {
     flex-direction: column;
-    .box {
+    > div {
       width: 100%;
     }
   }

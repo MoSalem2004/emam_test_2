@@ -27,7 +27,9 @@
       />
       <font-awesome-icon v-if="top10" :icon="['fas', 'medal']" color="gold" />
       <div>الترتيب</div>
-      {{ Ranking }}
+      <div>
+        {{ Ranking }}
+      </div>
     </div>
     <div
       class="title flex items-center gap-2.5 mb-5"
@@ -46,12 +48,6 @@
         class="data w-1/2 flex flex-col gap-2.5"
         style="background: #fafafa; padding: 10px; border-radius: 5px"
       >
-        <img
-          src="../assets/animation_lolk2w1w_small.gif"
-          alt=""
-          style="width: 100px; margin: auto"
-          v-if="ShowImg"
-        />
         <div
           class="name"
           style="
@@ -242,7 +238,7 @@ export default {
       Ranking: "",
       TypeOfClass: "",
       User: "",
-      ShowImg: true,
+
       interval: 0,
       value: 0,
       ShowAppreciations: null,
@@ -282,7 +278,7 @@ export default {
       const studentsCollection = collection(db, "الطلاب");
       const querySnapshot = await getDocs(studentsCollection);
       const documentRef = doc(db, "الطلاب", localStorage.getItem("userid"));
-      this.ShowImg = false;
+
       // تحديث الوثيقة
       await updateDoc(documentRef, {
         AllResults: `${Data || 0}`,
