@@ -51,7 +51,7 @@
       <div class="User_file flex items-center">
         <div
           class="data w-1/2 flex flex-col gap-2.5"
-          style="background: #fafafa; padding: 10px; border-radius: 5px"
+          style="padding: 10px; border-radius: 5px"
         >
           <div
             class="name"
