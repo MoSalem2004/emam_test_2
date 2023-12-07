@@ -26,6 +26,7 @@
         v-if="index3"
       />
       <font-awesome-icon v-if="top10" :icon="['fas', 'medal']" color="gold" />
+      <div>الترتيب</div>
       {{ Ranking }}
     </div>
     <div
@@ -157,15 +158,15 @@
         </div>
       </div>
     </div>
-    <div class="flex gap-2.5 justify-between">
+    <div class="flex gap-2.5 justify-between All_Btn my-5">
       <div
-        class="All_Result bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded"
+        class="All_Result bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0 active"
         @click="CloseTogell_2"
       >
         نتائجي
       </div>
       <div
-        class="All_Courses bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded"
+        class="All_Courses bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0"
         @click="CloseTogell_1"
       >
         كورساتي
@@ -252,12 +253,22 @@ export default {
     };
   },
   methods: {
+    All_Btn() {
+      let btn = document.querySelectorAll(".All_Btn > div");
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].onclick = () => {
+          btn.forEach((e) => {
+            e.classList.remove("active");
+          });
+          btn[i].classList.add("active");
+        };
+      }
+    },
     Progress() {
-      console.log(+this.TotalResult);
       this.interval = setInterval(() => {
-        if (this.value === +this.TotalResult || 0) {
+        if (this.value === Math.round(+this.TotalResult) || 0) {
           this.ShowAppreciations = true;
-          return (this.value = +this.TotalResult || 0);
+          return (this.value = Math.round(+this.TotalResult) || 0);
         }
         this.value += 1;
       }, 100);
@@ -326,7 +337,7 @@ export default {
           );
           console.log("this.TotalResult =>", this.TotalResult);
           console.log("tem.value=>", item.value);
-          if (this.TotalResult === item.value) {
+          if (this.TotalResult === Math.floor(item.value)) {
             if (index + 1 === 1) {
               this.Ranking = index + 1;
               this.index1 = true;
@@ -482,6 +493,7 @@ export default {
       });
       // setTimeout(() => {
       this.handleTotalResult();
+      this.All_Btn();
 
       // }, 1000);
     },
@@ -502,6 +514,19 @@ export default {
   font-size: 20px !important;
   color: var(--main-color) !important;
   font-weight: bold !important;
+}
+.All_Btn {
+  div {
+    font-size: 20px;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+  }
+}
+.active {
+  color: #fff !important;
+  background: var(--main-color) !important;
 }
 @media (min-width: 1200px) {
 }

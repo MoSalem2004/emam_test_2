@@ -297,9 +297,10 @@ export default {
         if (!querySnapshot_Admin.empty) {
           this.$store.commit("setUserAdmin", "Admin");
           console.log("Admin =>", this.UserAdmin);
-        } else {
-          this.$store.commit("setUserAdmin", "");
         }
+        // else {
+        //   this.$store.commit("setUserAdmin", "");
+        // }
       } catch (error) {
         console.log(error);
       }
@@ -312,9 +313,10 @@ export default {
         if (!querySnapshot_User.empty) {
           this.$store.commit("setUserAdmin", "User");
           console.log("Admin =>", this.UserAdmin);
-        } else {
-          this.$store.commit("setUserAdmin", "");
         }
+        // else {
+        //   this.$store.commit("setUserAdmin", "");
+        // }
       } catch (error) {
         console.log(error);
       }
@@ -347,7 +349,7 @@ export default {
       setTimeout(() => {
         this.UserStateFunction();
         this.TheState();
-      }, 100);
+      }, 1009);
     },
     UserStateFunction() {
       console.log("UserStateFunction");
