@@ -233,7 +233,7 @@ export default {
       Lang: "",
       close_1: null,
       close_2: true,
-      TotalResult: "",
+      TotalResult: 0,
       Appreciations: "",
       Ranking: "",
       TypeOfClass: "",
@@ -261,6 +261,7 @@ export default {
       }
     },
     Progress() {
+      console.log(Math.round(+this.TotalResult));
       this.interval = setInterval(() => {
         if (this.value === Math.round(+this.TotalResult) || 0) {
           this.ShowAppreciations = true;
@@ -274,7 +275,7 @@ export default {
     },
     async handleTotalResult(Data) {
       this.TotalResult = Data;
-      this.Progress();
+
       const studentsCollection = collection(db, "الطلاب");
       const querySnapshot = await getDocs(studentsCollection);
       const documentRef = doc(db, "الطلاب", localStorage.getItem("userid"));
@@ -372,6 +373,7 @@ export default {
         });
       });
       console.log(ReducedArray);
+      this.Progress();
     },
     CloseTogell_1() {
       this.close_1 = true;
