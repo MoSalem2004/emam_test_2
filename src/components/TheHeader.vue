@@ -18,7 +18,15 @@
             alt="أكاديمية الإمام القانونية"
             class="h-24 rounded-full"
           />
-          <span class="text-xl">أكاديمية الإمام القانونية</span>
+          <span
+            class="text-xl"
+            style="
+              font-weight: bold;
+              color: var(--main-color);
+              font-family: system-ui;
+            "
+            >أكاديمية الإمام القانونية</span
+          >
         </router-link>
       </div>
       <div class="left flex items-center gap-2.5 flex-wrap">
