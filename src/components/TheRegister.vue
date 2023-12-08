@@ -10,6 +10,30 @@
         <font-awesome-icon :icon="['fas', 'xmark']" @click="close_2" />
       </div>
 
+      <v-sheet width="300" class="mx-auto">
+        <v-form fast-fail @submit.prevent="AddAdmin">
+          <v-text-field
+            v-model="Name"
+            label="الإسم"
+            :rules="firstNameRules"
+          ></v-text-field>
+
+          <v-text-field
+            v-model="phone"
+            label="رقم الهاتف"
+            :rules="lastNameRules"
+          ></v-text-field>
+
+          <v-text-field
+            v-model="password"
+            label="الباسوورد"
+            :rules="passRules"
+          ></v-text-field>
+          <v-select :items="items" label="صلاحيات المشرف"></v-select>
+          <v-btn type="submit" block class="mt-2">تم</v-btn>
+        </v-form>
+      </v-sheet>
+
       <form action="POST">
         <div>يرجي كتابة الإسم باللغة العربية</div>
         <div class="small_container">
@@ -386,6 +410,38 @@ export default {
         "الفرقة الرابعة",
       ],
       value: false,
+      Name: "",
+      Data: [],
+      ShowAddAdmin: null,
+      firstNameRules: [
+        (value) => {
+          if (value?.length > 3) return true;
+
+          return "يجب كتابة الإسم";
+        },
+      ],
+      phone: "",
+      lastNameRules: [
+        (value) => {
+          if (value.length === 11) return true;
+
+          return "يجب إدخال رقم صالح";
+        },
+      ],
+      password: "",
+      passRules: [
+        (value) => {
+          if (value?.length > 6) return true;
+
+          return "يجب ان لا كلمة المرور عن 6 احرف";
+        },
+      ],
+      items: [
+        "الكل",
+        "إضافة الإختبارات",
+        "إضافة الكورسات",
+        "الإطلاع علي إحصائيات الموقع",
+      ],
     };
   },
   computed: {
