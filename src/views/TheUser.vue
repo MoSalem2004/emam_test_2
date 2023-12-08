@@ -1,6 +1,6 @@
 <template>
-  <div class="TheUser" style="margin-top: 137px">
-    <div class="container relative">
+  <div class="TheUser" style="margin-top: 137px; padding-bottom: 50px">
+    <div class="container relative" style="padding-top: 20px">
       <div
         v-show="ShowAppreciations"
         v-if="Ranking"
@@ -8,7 +8,7 @@
         style="
           position: absolute;
           left: 30px;
-          background: #fafafa;
+          background: #fff;
           padding: 10px;
           border-radius: 5px;
           color: var(--main-color);
@@ -156,6 +156,8 @@
                 font-size: 20px;
                 font-weight: bold;
                 color: var(--main-color);
+                border: 1px solid var(--main-color);
+                border-radius: 5px;
               "
             >
               {{ Appreciations }}
