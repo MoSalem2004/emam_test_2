@@ -1,43 +1,8 @@
 <template>
-  <div class="TheUser" style="margin-top: 137px; padding-bottom: 50px">
-    <div class="container relative" style="padding-top: 20px">
+  <div class="TheUser" style="margin-top: -20px; padding-bottom: 50px">
+    <div class="container relative" style="padding-top: 160px">
       <div
-        v-show="ShowAppreciations"
-        v-if="Ranking"
-        class="ranking flex items-center gap-2.5"
-        style="
-          position: absolute;
-          left: 30px;
-          background: #fff;
-          padding: 10px;
-          border-radius: 5px;
-          color: var(--main-color);
-          font-weight: bold;
-        "
-      >
-        <font-awesome-icon
-          :icon="['fas', 'trophy']"
-          color="gold"
-          v-if="index1"
-        />
-        <font-awesome-icon
-          :icon="['fas', 'trophy']"
-          color="silver"
-          v-if="index2"
-        />
-        <font-awesome-icon
-          :icon="['fas', 'trophy']"
-          color="#c77b30"
-          v-if="index3"
-        />
-        <font-awesome-icon v-if="top10" :icon="['fas', 'medal']" color="gold" />
-        <div>الترتيب</div>
-        <div>
-          {{ Ranking }}
-        </div>
-      </div>
-      <div
-        class="title flex items-center gap-2.5 mb-5"
+        class="title flex items-center gap-2.5 mb-5 justify-between"
         style="
           font-size: 30px;
           color: var(--main-color);
@@ -45,8 +10,55 @@
           font-family: system-ui;
         "
       >
-        <font-awesome-icon :icon="['fas', 'id-card']" />
-        <span>حسابي</span>
+        <div class="flex items-center gap-2.5">
+          <font-awesome-icon :icon="['fas', 'id-card']" />
+          <span>حسابي</span>
+        </div>
+        <div
+          v-show="ShowAppreciations"
+          v-if="RankingShow"
+          class="ranking flex items-center gap-2.5"
+          style="
+            background: rgb(255, 255, 255);
+            padding: 10px;
+            border-radius: 5px;
+            color: var(--main-color);
+            font-weight: bold;
+            font-size: 17px;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <font-awesome-icon
+            :icon="['fas', 'trophy']"
+            color="gold"
+            v-if="index1"
+          />
+          <font-awesome-icon
+            :icon="['fas', 'trophy']"
+            color="silver"
+            v-if="index2"
+          />
+          <font-awesome-icon
+            :icon="['fas', 'trophy']"
+            color="#c77b30"
+            v-if="index3"
+          />
+          <font-awesome-icon
+            v-if="top10"
+            :icon="['fas', 'medal']"
+            color="gold"
+          />
+          <font-awesome-icon
+            v-if="top50"
+            :icon="['fas', 'certificate']"
+            color="gold"
+          />
+          <div>الترتيب</div>
+          <div>
+            {{ Ranking }}
+          </div>
+        </div>
       </div>
       <div class="User_file flex items-center">
         <div
@@ -176,7 +188,7 @@
           class="All_Courses bg-[#eee] w-48 text-center p-2.5 cursor-pointer rounded hover-0"
           @click="CloseTogell_1"
         >
-          كورساتي
+          فواتيري
           <!-- FawryPay Checkout Button -->
         </div>
       </div>
@@ -258,6 +270,8 @@ export default {
       index2: null,
       index3: null,
       top10: null,
+      top50: null,
+      RankingShow: null,
     };
   },
   methods: {
@@ -349,39 +363,25 @@ export default {
           console.log("this.TotalResult =>", this.TotalResult);
           console.log("tem.value=>", item.value);
           if (this.TotalResult === Math.floor(item.value)) {
+            this.RankingShow = true;
+            this.Ranking = index + 1;
             if (index + 1 === 1) {
-              this.Ranking = index + 1;
               this.index1 = true;
               this.top10 = true;
+              this.top50 = true;
             } else if (index + 1 === 2) {
-              this.Ranking = index + 1;
               this.index2 = true;
               this.top10 = true;
+              this.top50 = true;
             } else if (index + 1 === 3) {
-              this.Ranking = index + 1;
               this.index3 = true;
               this.top10 = true;
-            }
-            // else if (index + 1 === 4) {
-            //   this.Ranking = "الرابع";
-            // } else if (index + 1 === 5) {
-            //   this.Ranking = "الخامس";
-            // } else if (index + 1 === 6) {
-            //   this.Ranking = "السادس";
-            // } else if (index + 1 === 7) {
-            //   this.Ranking = "السابع";
-            // } else if (index + 1 === 8) {
-            //   this.Ranking = "الثامن";
-            // } else if (index + 1 === 9) {
-            //   this.Ranking = "التاسع";
-            // } else if (index + 1 === 10) {
-            //   this.Ranking = "العاشر";
-            // }
-            else {
-              // this.index1 = false;
-              // this.index2 = true;
+              this.top50 = true;
+            } else if (index + 1 < 11) {
               this.top10 = true;
-              this.Ranking = index + 1;
+              this.top50 = true;
+            } else if (index + 1 < 51) {
+              this.top50 = true;
             }
           }
         });
@@ -554,7 +554,10 @@ export default {
 
 @media (max-width: 767px) {
   .TheUser {
-    margin-top: 105px !important;
+    margin-top: -20px !important;
+    .container {
+      padding-top: 123px !important;
+    }
   }
   .User_file {
     flex-direction: column-reverse;

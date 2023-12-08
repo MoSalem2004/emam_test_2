@@ -42,6 +42,7 @@
     "vue-analytics": "^5.22.1",
     "vue-gtag": "^2.0.1",
     "vue-router": "^4.0.3",
+    "vue-validate": "^1.0.1",
     "vuetify": "^3.4.3",
     "vuex": "^4.0.2",
     "webpack": "^5.89.0"

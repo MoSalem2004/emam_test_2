@@ -1,5 +1,5 @@
 <template>
-  <div class="TheClasses">
+  <div id="TheClasses" class="TheClasses">
     <div class="container">
       <div class="main_title">الفرق الدراسية</div>
       <div class="box shadow p-2.5 rounded">

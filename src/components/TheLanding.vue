@@ -148,6 +148,7 @@ export default {
   background-image: url("../assets/WhatsApp Image 2023-12-04 at 11.00.58 PM.jpeg");
   background-size: cover;
   background-position: center top;
+  background-attachment: fixed;
 }
 .icon {
   bottom: 403px;

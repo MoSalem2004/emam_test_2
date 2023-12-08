@@ -39,26 +39,15 @@
 
         <!-- <font-awesome-icon :icon="['fas', 'magnifying-glass']" /> -->
 
-        <div
-          class="login flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
-          v-if="!UserState"
-          @click="close_1"
-          style="border: 1px solid var(--main-color); color: var(--main-color)"
-        >
-          <font-awesome-icon :icon="['fas', 'user-lock']" />
-          <span>تسجيل دخول</span>
-        </div>
-
         <div v-if="UserState" class="Sign_In">
           <v-menu transition="slide-y-transition">
             <template v-slot:activator="{ props }">
-              <div v-bind="props">
-                <div
-                  class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
-                  @click="State"
-                >
-                  {{ firstLetters }}
-                </div>
+              <div
+                class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
+                @click="State"
+                v-bind="props"
+              >
+                {{ firstLetters }}
               </div>
             </template>
             <v-list>
@@ -163,7 +152,16 @@
         </div>
 
         <div
-          class="registr flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
+          class="login flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md ShowLogin"
+          v-if="!UserState"
+          @click="close_1"
+          style="border: 1px solid var(--main-color); color: var(--main-color)"
+        >
+          <font-awesome-icon :icon="['fas', 'user-lock']" />
+          <span>تسجيل دخول</span>
+        </div>
+        <div
+          class="registr flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md ShowLogin"
           style="border: 1px solid var(--main-color); color: var(--main-color)"
           v-if="!UserState"
           @click="close_2"
@@ -171,46 +169,51 @@
           <font-awesome-icon :icon="['fas', 'user-plus']" />
           <span>حساب جديد</span>
         </div>
-        <v-menu transition="slide-y-transition">
+        <v-menu transition="slide-y-transition" style="min-width: 300px">
           <template v-slot:activator="{ props }">
             <div v-bind="props">
               <font-awesome-icon :icon="['fas', 'bars']" class="text-2xl" />
             </div>
           </template>
           <v-list>
-            <v-list-item-title class="mobile">
-              <div
-                class="registr flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
-                style="
-                  border: 1px solid var(--main-color);
-                  color: var(--main-color);
-                "
-                v-if="!UserState"
-                @click="close_2"
-              >
+            <v-list-item-title
+              class="mobile registr"
+              v-if="!UserState"
+              @click="close_2"
+            >
+              <a href="#">
                 <font-awesome-icon :icon="['fas', 'user-plus']" />
                 <span>حساب جديد</span>
-              </div>
+              </a>
             </v-list-item-title>
-            <v-list-item-title class="mobile">
-              <div
-                class="login flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
-                v-if="!UserState"
-                @click="close_1"
-                style="
-                  border: 1px solid var(--main-color);
-                  color: var(--main-color);
-                "
-              >
+            <v-list-item-title
+              class="mobile login"
+              v-if="!UserState"
+              @click="close_1"
+            >
+              <a href="#">
                 <font-awesome-icon :icon="['fas', 'user-lock']" />
                 <span>تسجيل دخول</span>
-              </div>
-            </v-list-item-title>
-            <v-list-item v-for="(item, i) in items" :key="i">
-              <a href="#"
-                ><v-list-item-title>{{ item.title }} </v-list-item-title>
               </a>
-            </v-list-item>
+            </v-list-item-title>
+            <v-list-item-title>
+              <a href="#TheClasses">
+                <font-awesome-icon :icon="['fas', 'people-group']" />
+                <span>الفرق الدراسية</span>
+              </a>
+            </v-list-item-title>
+            <v-list-item-title>
+              <a href="#TheGallary">
+                <font-awesome-icon :icon="['fas', 'image']" />
+                <span>معرض الصور</span>
+              </a>
+            </v-list-item-title>
+            <v-list-item-title>
+              <a href="#ContactUs">
+                <font-awesome-icon :icon="['fas', 'comments']" />
+                <span>تواصل معنا</span>
+              </a>
+            </v-list-item-title>
           </v-list>
         </v-menu>
       </div>
@@ -260,12 +263,6 @@ export default {
       ShowHelloUser: null,
       thetype: "",
       visitorCount: null,
-      items: [
-        // { title: "أحدث الأخبار" },
-        { title: "الفرق الدراسية" },
-        { title: "معرض الصور" },
-        { title: "تواصل معنا" },
-      ],
     };
   },
   components: {
@@ -389,6 +386,29 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.v-menu > .v-overlay__content {
+  min-width: 300px !important;
+}
+.v-list-item-title {
+  a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: var(--main-color) !important;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  cursor: pointer;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+  &:hover {
+    // transform: translateX(7px);
+    background: #fafafa;
+  }
+}
 .Header {
   transition: 0.5s;
 }
@@ -405,6 +425,9 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .ShowLogin {
+    display: none;
+  }
   .container {
     flex-direction: row;
     .logo {

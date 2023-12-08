@@ -1,5 +1,5 @@
 <template>
-  <div class="TheGallary">
+  <div id="TheGallary" class="TheGallary">
     <div class="container">
       <div class="main_title">معرض الصور</div>
       <div class="buttons">

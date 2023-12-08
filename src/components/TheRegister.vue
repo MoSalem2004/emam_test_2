@@ -9,6 +9,7 @@
         <h3>حساب جديد</h3>
         <font-awesome-icon :icon="['fas', 'xmark']" @click="close_2" />
       </div>
+
       <form action="POST">
         <div>يرجي كتابة الإسم باللغة العربية</div>
         <div class="small_container">

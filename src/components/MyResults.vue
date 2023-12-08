@@ -373,7 +373,7 @@ export default {
             return (this.value[i] = Math.round(+Array_1[i]) || 0);
           }
           this.value[i] += 1;
-        }, 100);
+        }, 10);
       }
       const sum = Array_1.reduce(
         (accumulator, currentValue) => accumulator + parseFloat(currentValue),
@@ -435,7 +435,7 @@ export default {
               Math.round(+this.Results_1[i].percent) || 0);
           }
           this.value_1[i] += 1;
-        }, 100);
+        }, 10);
       }
     },
     ShowResultFunction() {

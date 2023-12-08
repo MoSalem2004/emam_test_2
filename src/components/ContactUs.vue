@@ -1,5 +1,5 @@
 <template>
-  <div class="ContactUs bg-[#fafafa] mt-20">
+  <div id="ContactUs" class="ContactUs bg-[#fafafa] mt-20">
     <div class="container flex flex-col justify-center items-center">
       <div class="Feat_1 flex w-100 justify-between">
         <a

@@ -1,45 +1,182 @@
 <template>
-  <div class="mt-2.5 flex gap-[19px] flex-wrap justify-between">
+  <div class="mt-2.5 flex flex-wrap justify-between contain">
+    <img
+      src="../assets/animation_lolk2w1w_small.gif"
+      alt=""
+      style="width: 100px; margin: auto"
+      v-if="ShowImg"
+    />
+    <div v-if="ShowMyResult" class="Msg">لا توجد فواتير لك</div>
+
     <div
-      class="box w-32 border p-2.5"
+      class="box w-50 border p-2.5 rounded"
       v-for="(data, index) in AllData"
       :key="data"
     >
       <div class="header">
-        <div class="number">{{ index + 1 }}</div>
-        <div class="title">{{ data.BillName }}</div>
-      </div>
-      <div class="body">
-        <div>
-          <span>الدراسة : </span> <span>{{ data.BillType }}</span>
+        <div
+          class="number mb-2.5"
+          style="
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--main-color);
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+          "
+        >
+          {{ index + 1 }}
         </div>
-        <div>
-          <span>الفرقة : </span> <span>{{ data.BillClass }}</span>
-        </div>
-        <div>
-          <span>الصنف : </span> <span>{{ data.BillItem }}</span>
-        </div>
-        <div>
-          <span>السعر : </span>
-          <span>{{ data.BillPrice / 100 }} ج م</span>
-        </div>
-        <div>
-          <span>كود الإستلام : </span> <span>{{ data.order_id }}</span>
-        </div>
-        <div>
-          <span> تاريخ الدفع : </span>
-          <span>
-            {{
-              new Date(data.Time.toMillis()).toLocaleString(["ar"], {
-                weekday: "short",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            }}
-          </span>
+        <div class="">
+          <div class="box">
+            <div class="flex align-items w-100">
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-left: none;
+                "
+              >
+                الدراسة
+              </div>
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                {{ data.BillType }}
+              </div>
+            </div>
+            <div class="flex align-items w-100">
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-left: none;
+                "
+              >
+                الفرقة
+              </div>
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                {{ data.BillClass }}
+              </div>
+            </div>
+            <div class="flex align-items w-100">
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-left: none;
+                "
+              >
+                الصنف
+              </div>
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                {{ data.BillItem }}
+              </div>
+            </div>
+            <div class="flex align-items w-100">
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-left: none;
+                "
+              >
+                السعر
+              </div>
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                {{ data.BillPrice / 100 }} ج م
+              </div>
+            </div>
+            <div class="flex align-items w-100">
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-left: none;
+                "
+              >
+                تاريخ الدفع
+              </div>
+              <div
+                style="
+                  width: 50%;
+                  border: 1px solid var(--main-color);
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                {{
+                  new Date(data.Time.toMillis()).toLocaleString(["ar"], {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,6 +214,8 @@ export default {
   data() {
     return {
       AllData: [],
+      ShowMyResult: null,
+      ShowImg: true,
     };
   },
   methods: {
@@ -127,8 +266,47 @@ export default {
         console.log(this.AllData);
         this.AllData.sort((a, b) => b.Time.toMillis() - a.Time.toMillis());
         console.log("AllData", this.AllData.length);
+        this.ShowImg = false;
       });
+      if (this.AllData.length === 0) {
+        this.ShowMyResult = true;
+      }
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+.box div {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--main-color);
+  text-align: center;
+}
+.Msg {
+  background: #fafafa;
+  padding: 10px;
+  text-align: center;
+  margin: 10px auto;
+  border-radius: 5px;
+  font-weight: 700;
+  color: var(--main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+}
+
+@media (max-width: 767px) {
+  .contain {
+    flex-direction: column;
+    > div {
+      width: 100% !important;
+    }
+  }
+}
+</style>
