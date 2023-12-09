@@ -161,7 +161,7 @@
         </div>
 
         <div
-          class="ShowLogin flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
+          class="ShowLogin hover-0 flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
           v-if="!UserState"
           @click="close_1"
           style="border: 1px solid var(--main-color); color: var(--main-color)"
@@ -170,7 +170,7 @@
           <span>تسجيل دخول</span>
         </div>
         <div
-          class="ShowLogin flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
+          class="ShowLogin hover-0 flex gap-2.5 items-center cursor-pointer bg-[#eee] p-2.5 rounded-md"
           style="border: 1px solid var(--main-color); color: var(--main-color)"
           v-if="!UserState"
           @click="close_2"
