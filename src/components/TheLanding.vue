@@ -10,6 +10,7 @@
           alt=""
           width="50px"
           class="law"
+          style="z-index: 0"
         />
       </div>
       <div class="flex justify-center items-center h-80 contain">
@@ -21,6 +22,7 @@
               alt=""
               width="50px"
               class="law"
+              style="z-index: 0"
             />
           </div>
         </div>
@@ -30,7 +32,7 @@
           <div class="title_3">
             منصة الإمام منصة متخصصة في تدريس المواد القانونية
           </div>
-          <div style="width: fit-content">
+          <div style="z-index: 1; width: fit-content">
             <v-dialog v-model="dialog">
               <template v-slot:activator="{ props }">
                 <div v-bind="props" class="button_2 p-0">
@@ -39,7 +41,15 @@
                 </div>
               </template>
               <v-card>
-                <div class="flex justify-between items-center p-2.5">
+                <div
+                  class="flex justify-between items-center p-2.5"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    padding: 18px 24px;
+                    gap: 10px;
+                  "
+                >
                   <v-card-title>
                     <div class="title_1_1 flex items-center gap-2.5">
                       <font-awesome-icon :icon="['fas', 'scale-balanced']" />
@@ -47,15 +57,14 @@
                     </div>
                   </v-card-title>
 
-                  <v-btn variant="text" @click="dialog = false">
-                    <font-awesome-icon
-                      class="text-2xl text-[--main-color]"
-                      :icon="['fas', 'xmark']"
-                    />
-                  </v-btn>
+                  <font-awesome-icon
+                    @click="dialog = false"
+                    class="text-2xl text-[--main-color]"
+                    :icon="['fas', 'xmark']"
+                  />
                 </div>
                 <v-card-text>
-                  <div class="text-left text-[--main-color] mb-2.5 font-bold">
+                  <div class="text-ringth text-[--main-color] mb-2.5 font-bold">
                     ({{ data_1.length }}) مجال
                   </div>
                   <div v-for="(data, index) in data_1" :key="data" class="feat">
@@ -66,32 +75,47 @@
               </v-card>
             </v-dialog>
           </div>
-          <div style="width: fit-content">
-            <v-btn class="button_1" style="background: transparent">
-              <font-awesome-icon :icon="['fas', 'circle-question']" />
-              <span>لماذا تختار كلية الشريعة و القانون</span>
+          <div style="z-index: 1; width: fit-content">
+            <v-dialog v-model="dialog2">
+              <template v-slot:activator="{ props }">
+                <div v-bind="props" class="button_2 p-0">
+                  <font-awesome-icon :icon="['fas', 'circle-question']" />
+                  <span>لماذا تختار كلية الشريعة و القانون</span>
+                </div>
+              </template>
+              <v-card>
+                <div
+                  class="flex justify-between items-center p-2.5"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    padding: 18px 24px;
+                    gap: 10px;
+                  "
+                >
+                  <v-card-title>
+                    <div class="title_1_1 flex items-center gap-2.5">
+                      <font-awesome-icon :icon="['fas', 'circle-question']" />
+                      <span>لماذا تختار كلية الشريعة و القانون</span>
+                    </div>
+                  </v-card-title>
 
-              <v-dialog v-model="dialog2" activator="parent" width="auto">
-                <v-card>
-                  <div class="flex justify-between items-center p-2.5">
-                    <v-card-title style="padding: 0px !important">
-                      <div
-                        class="title_1_1 flex items-center gap-2.5"
-                        style="background: transparent"
-                      >
-                        <font-awesome-icon :icon="['fas', 'scale-balanced']" />
-                        <span>لماذا كلية الشريعة و القانون</span>
-                      </div>
-                    </v-card-title>
-
-                    <v-btn variant="text" @click="dialog2 = false">
-                      <font-awesome-icon
-                        class="text-2xl text-[--main-color]"
-                        :icon="['fas', 'xmark']"
-                      />
-                    </v-btn>
-                  </div>
-                  <v-card-text style="font-family: system-ui; line-height: 2">
+                  <font-awesome-icon
+                    @click="dialog2 = false"
+                    class="text-2xl text-[--main-color]"
+                    :icon="['fas', 'xmark']"
+                  />
+                </div>
+                <v-card-text>
+                  <div
+                    style="
+                      font-family: system-ui;
+                      line-height: 2;
+                      background: #fafafa;
+                      text-align: center;
+                      border-radius: 5px;
+                    "
+                  >
                     كلية الشريعة والقانون هي من الكليات ذات الشأن العالى والرفعه
                     في مصر، وهي إحدى أقدم وأعرق كليات جامعة الأزهر وهي كلية خاصة
                     بدراسة العلوم الشرعية (الفقه والفقه المقارن وأصول الفقه)
@@ -100,10 +124,10 @@
                     تلك المواد التي يتم تدريسها في كليات الحقوق مما أكسب هذه
                     الكلية ميزةَ الجمع بين العلوم الدينية " المتمثلة في المواد
                     الشرعية. والعلوم الدنيوية " المتمثله في المواد القانونية.
-                  </v-card-text>
-                </v-card>
-              </v-dialog>
-            </v-btn>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
       </div>
@@ -165,7 +189,7 @@ img {
 .title_1_1 {
   color: var(--main-color) !important;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 }
 .feat {
   display: flex;
@@ -174,6 +198,7 @@ img {
   border-radius: 5px;
   border: 1px solid var(--main-color);
   margin-bottom: 10px;
+  font-size: 14px;
   span {
     width: 30px;
     background: var(--main-color);
@@ -202,9 +227,9 @@ img {
   }
   .button_1,
   .button_2 {
+    padding: 10px !important;
     width: fit-content;
     border: 1px solid var(--main-color) !important;
-    padding: 15px !important;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -221,6 +246,9 @@ img {
       color: #fff !important;
     }
   }
+}
+.v-card .v-card-title {
+  padding: 0 !important;
 }
 @media (min-width: 1200px) {
 }
