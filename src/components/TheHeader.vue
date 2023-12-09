@@ -188,8 +188,7 @@
             <v-list-item-title
               class="mobile registr"
               v-if="!UserState"
-              @click="close_2"
-            >
+              @click="close_2">
               <a href="#">
                 <font-awesome-icon :icon="['fas', 'user-plus']" />
                 <span>حساب جديد</span>
