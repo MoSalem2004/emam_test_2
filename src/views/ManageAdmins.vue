@@ -42,6 +42,12 @@
               label="الباسوورد"
               :rules="passRules"
             ></v-text-field>
+
+            <v-text-field
+              v-model="password"
+              label="الباسوورد"
+              :rules="emailRules"
+            ></v-text-field>
             <v-select :items="items" label="صلاحيات المشرف"></v-select>
             <v-btn type="submit" block class="mt-2">تم</v-btn>
           </v-form>
@@ -117,6 +123,13 @@ export default {
         if (value?.length > 6) return true;
 
         return "يجب ان لا كلمة المرور عن 6 احرف";
+      },
+    ],
+    emailRules: [
+      (value) => {
+        if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
+
+        return "البريد الإلكتروني غير صحيح";
       },
     ],
     items: [

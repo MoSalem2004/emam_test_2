@@ -50,12 +50,13 @@
         <div v-if="UserState" class="Sign_In">
           <v-menu transition="slide-y-transition">
             <template v-slot:activator="{ props }">
-              <div
-                class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
-                @click="State"
-                v-bind="props"
-              >
-                {{ firstLetters }}
+              <div v-bind="props">
+                <div
+                  class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
+                  @click="State"
+                >
+                  {{ firstLetters }}
+                </div>
               </div>
             </template>
             <v-list>
@@ -414,15 +415,18 @@ export default {
   }
   &:hover {
     // transform: translateX(7px);
-    background: #fafafa;
+    // background: #fafafa;
   }
 }
 .Header {
   transition: 0.5s;
 }
-.hover-0:hover .v-list-item-title {
-  color: #fff !important;
+.v-list-item-title {
+  transition: 00.3s;
 }
+// .hover-0:hover .v-list-item-title {
+//   transform: scale(1.1);
+// }
 // .mobile {
 //   display: none;
 // }
@@ -457,9 +461,9 @@ export default {
         }
       }
     }
-    .mobile {
-      display: flex;
-    }
+    // .mobile {
+    //   display: flex;
+    // }
   }
 }
 </style>

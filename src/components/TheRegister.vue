@@ -1,5 +1,9 @@
 <template>
-  <div class="main_Overlay" @click="close_2" style="z-index: 101"></div>
+  <div
+    class="main_Overlay"
+    @click="close_2"
+    style="z-index: 101; pointer-events: none"
+  ></div>
   <div
     class="container bg-white fixed z-10 rounded p-2.5 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 max-h-90 overflow-auto"
     style="z-index: 101"
@@ -11,11 +15,22 @@
       </div>
 
       <v-sheet width="300" class="mx-auto">
-        <v-form fast-fail @submit.prevent="AddAdmin">
+        <v-form fast-fail @submit.prevent>
+          <font-awesome-icon :icon="['fas', 'xmark']" />
           <v-text-field
-            v-model="Name"
-            label="الإسم"
-            :rules="firstNameRules"
+            v-model="Name1"
+            label="الإسم الأول"
+            :rules="firstNameRules1"
+          ></v-text-field>
+          <v-text-field
+            v-model="Name2"
+            label="الإسم الثاني"
+            :rules="firstNameRules2"
+          ></v-text-field>
+          <v-text-field
+            v-model="Name3"
+            label="الإسم الثالث"
+            :rules="firstNameRules3"
           ></v-text-field>
 
           <v-text-field
@@ -24,17 +39,22 @@
             :rules="lastNameRules"
           ></v-text-field>
 
+          <v-select label="حدد مكان كليتك / معهدك" :items="items"></v-select>
+          <v-text-field
+            v-model="email"
+            label="الإيميل"
+            :rules="emailRules"
+          ></v-text-field>
           <v-text-field
             v-model="password"
-            label="الباسوورد"
+            label="كلمة المرور"
             :rules="passRules"
           ></v-text-field>
-          <v-select :items="items" label="صلاحيات المشرف"></v-select>
           <v-btn type="submit" block class="mt-2">تم</v-btn>
         </v-form>
       </v-sheet>
 
-      <form action="POST">
+      <!-- <form action="POST">
         <div>يرجي كتابة الإسم باللغة العربية</div>
         <div class="small_container">
           <div class="flex justify-between flex-wrap TheName">
@@ -325,7 +345,7 @@
             </button>
           </div>
         </div>
-      </form>
+      </form> -->
     </section>
   </div>
   <div id="user"></div>
@@ -358,7 +378,7 @@ export default {
   selectedValue: "",
   emits: ["close_2"],
   mounted() {
-    this.select();
+    // this.select();
   },
   data() {
     return {
@@ -375,26 +395,37 @@ export default {
       ErrorMsg: "",
       errorEmailMsg: "",
       errorEmailMsg_stat: null,
-      options: [
-        "",
-        "كلية الشريعة و القانون بالقاهرة - بنين",
-        "كلية الشريعة و القانون بطنطا - بنين",
-        "كلية الشريعة و القانون بتفهنا الأشراف - بنين",
-        "كلية الشريعة و القانون بدمنهور - بنين",
-        "كلية الشريعة و القانون بأسيوط - بنين",
-        "كلية الشريعة و القانون بالقاهرة - بنات",
-        "كلية الشريعة و القانون بالإسكندرية - بنات",
-        "كلية الشريعة و القانون بدمنهور - بنات",
-        "كلية الشريعة و القانون بالفيوم - بنات",
-        "كلية الشريعة و القانون بالمنيا - بنات",
-        "كلية الشريعة و القانون بالمنصورة - بنات",
-        "كلية الشريعة و القانون بأسيوط - بنات",
-        "معهد أعوان القضاء بالقاهرة - بنين",
-        "معهد أعوان القضاء بطنطا - بنين",
-        "معهد أعوان القضاء بتفهنا الأشراف - بنين",
-        "معهد أعوان القضاء بدمنهور - بنين",
-        "معهد أعوان القضاء بأسيوط - بنين",
-        "معهد أعوان القضاء بالقاهرة - بنات",
+      items: [
+        "كلية الشريعة و القانون - عربي - القاهرة - بنين",
+        "كلية الشريعة و القانون - English - القاهرة - بنين",
+        "كلية الشريعة و القانون - عربي - طنطا - بنين",
+        "كلية الشريعة و القانون - English - طنطا - بنين",
+        "كلية الشريعة و القانون - عربي - تفهنا الأشراف - بنين",
+        "كلية الشريعة و القانون - English - تفهنا الأشراف - بنين",
+        "كلية الشريعة و القانون - عربي - دمنهور - بنين",
+        "كلية الشريعة و القانون - English - دمنهور - بنين",
+        "كلية الشريعة و القانون - عربي - أسيوط - بنين",
+        "كلية الشريعة و القانون - English - أسيوط - بنين",
+        "كلية الشريعة و القانون - عربي - القاهرة - بنات",
+        "كلية الشريعة و القانون - English - القاهرة - بنات",
+        "كلية الشريعة و القانون - عربي - الإسكندرية - بنات",
+        "كلية الشريعة و القانون - English - الإسكندرية - بنات",
+        "كلية الشريعة و القانون - عربي - دمنهور - بنات",
+        "كلية الشريعة و القانون - English - دمنهور - بنات",
+        "كلية الشريعة و القانون - عربي - الفيوم - بنات",
+        "كلية الشريعة و القانون - English - الفيوم - بنات",
+        "كلية الشريعة و القانون - عربي - المنيا - بنات",
+        "كلية الشريعة و القانون - English - المنيا - بنات",
+        "كلية الشريعة و القانون - عربي - المنصورة - بنات",
+        "كلية الشريعة و القانون - English - المنصورة - بنات",
+        "كلية الشريعة و القانون - عربي - أسيوط - بنات",
+        "كلية الشريعة و القانون - English - أسيوط - بنات",
+        "معهد أعوان القضاء - عربي - القاهرة - بنين",
+        "معهد أعوان القضاء - عربي - طنطا - بنين",
+        "معهد أعوان القضاء - عربي - تفهنا الأشراف - بنين",
+        "معهد أعوان القضاء - عربي - دمنهور - بنين",
+        "معهد أعوان القضاء - عربي - أسيوط - بنين",
+        "معهد أعوان القضاء - عربي - القاهرة - بنات",
       ],
       closeHelloUser: null,
       PhoneState: null,
@@ -410,12 +441,29 @@ export default {
         "الفرقة الرابعة",
       ],
       value: false,
-      Name: "",
+      Name1: "",
+      Name2: "",
+      Name3: "",
+      email: "",
       Data: [],
       ShowAddAdmin: null,
-      firstNameRules: [
+      firstNameRules1: [
         (value) => {
-          if (value?.length > 3) return true;
+          if (value?.length > 1) return true;
+
+          return "يجب كتابة الإسم";
+        },
+      ],
+      firstNameRules2: [
+        (value) => {
+          if (value?.length > 1) return true;
+
+          return "يجب كتابة الإسم";
+        },
+      ],
+      firstNameRules3: [
+        (value) => {
+          if (value?.length > 1) return true;
 
           return "يجب كتابة الإسم";
         },
@@ -436,12 +484,21 @@ export default {
           return "يجب ان لا كلمة المرور عن 6 احرف";
         },
       ],
-      items: [
-        "الكل",
-        "إضافة الإختبارات",
-        "إضافة الكورسات",
-        "الإطلاع علي إحصائيات الموقع",
+      emailRules: [
+        (value) => {
+          if (/.+@.+\..+/.test(value)) return true;
+
+          return "البريد الإلكتروني غير صحيح";
+
+          // if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
+        },
       ],
+      // items: [
+      //   "الكل",
+      //   "إضافة الإختبارات",
+      //   "إضافة الكورسات",
+      //   "الإطلاع علي إحصائيات الموقع",
+      // ],
     };
   },
   computed: {
@@ -482,85 +539,85 @@ export default {
         console.log(error);
       }
     },
-    select() {
-      let numbers = document.querySelectorAll(".register .number .feat > div");
-      let content = document.querySelectorAll(".register .content > div");
-      document.querySelectorAll(".register .selecte_1 span")[0].onclick =
-        () => {
-          this.type = document.querySelectorAll(
-            ".register .selecte_1 span"
-          )[0].innerHTML;
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[1].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[1].classList.remove("hidden");
-          document
-            .querySelectorAll(".register .selecte_2 span")[1]
-            .classList.remove("hidden");
-          document
-            .querySelectorAll(".register .selecte_3 > div")[2]
-            .classList.remove("hidden");
-          document
-            .querySelectorAll(".register .selecte_3 > div")[3]
-            .classList.remove("hidden");
-        };
-      document.querySelectorAll(".register .selecte_1 span")[1].onclick =
-        () => {
-          this.type = document.querySelectorAll(
-            ".register .selecte_1 span"
-          )[1].innerHTML;
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[1].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[1].classList.remove("hidden");
-          document
-            .querySelectorAll(".register .selecte_2 span")[1]
-            .classList.add("hidden");
-          document
-            .querySelectorAll(".register .selecte_3> div")[2]
-            .classList.add("hidden");
-          document
-            .querySelectorAll(".register .selecte_3> div")[3]
-            .classList.add("hidden");
-        };
+    // select() {
+    //   let numbers = document.querySelectorAll(".register .number .feat > div");
+    //   let content = document.querySelectorAll(".register .content > div");
+    //   document.querySelectorAll(".register .selecte_1 span")[0].onclick =
+    //     () => {
+    //       this.type = document.querySelectorAll(
+    //         ".register .selecte_1 span"
+    //       )[0].innerHTML;
+    //       numbers.forEach((e) => e.classList.add("opacity-50"));
+    //       numbers[1].classList.remove("opacity-50");
+    //       content.forEach((e) => e.classList.add("hidden"));
+    //       content[1].classList.remove("hidden");
+    //       document
+    //         .querySelectorAll(".register .selecte_2 span")[1]
+    //         .classList.remove("hidden");
+    //       document
+    //         .querySelectorAll(".register .selecte_3 > div")[2]
+    //         .classList.remove("hidden");
+    //       document
+    //         .querySelectorAll(".register .selecte_3 > div")[3]
+    //         .classList.remove("hidden");
+    //     };
+    //   document.querySelectorAll(".register .selecte_1 span")[1].onclick =
+    //     () => {
+    //       this.type = document.querySelectorAll(
+    //         ".register .selecte_1 span"
+    //       )[1].innerHTML;
+    //       numbers.forEach((e) => e.classList.add("opacity-50"));
+    //       numbers[1].classList.remove("opacity-50");
+    //       content.forEach((e) => e.classList.add("hidden"));
+    //       content[1].classList.remove("hidden");
+    //       document
+    //         .querySelectorAll(".register .selecte_2 span")[1]
+    //         .classList.add("hidden");
+    //       document
+    //         .querySelectorAll(".register .selecte_3> div")[2]
+    //         .classList.add("hidden");
+    //       document
+    //         .querySelectorAll(".register .selecte_3> div")[3]
+    //         .classList.add("hidden");
+    //     };
 
-      document.querySelectorAll(".register .selecte_2 span").forEach((e) => {
-        e.onclick = () => {
-          this.lang = e.innerHTML;
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[2].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[2].classList.remove("hidden");
-        };
-        document.querySelector(".register .selecte_2 .button > div").onclick =
-          () => {
-            numbers.forEach((e) => e.classList.add("opacity-50"));
-            numbers[0].classList.remove("opacity-50");
-            content.forEach((e) => e.classList.add("hidden"));
-            content[0].classList.remove("hidden");
-          };
-      });
-      document.querySelectorAll(".register .selecte_3 > div").forEach((e) => {
-        e.onclick = () => {
-          this.class = e.innerHTML;
-          localStorage.setItem("type", this.type);
-          localStorage.setItem("Lang", this.lang);
-          localStorage.setItem("Class", this.class);
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[0].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[0].classList.remove("hidden");
-          this.value = true;
-        };
-        document.querySelector(".register .selecte_3 .button > div").onclick =
-          () => {
-            numbers.forEach((e) => e.classList.add("opacity-50"));
-            numbers[1].classList.remove("opacity-50");
-            content.forEach((e) => e.classList.add("hidden"));
-            content[1].classList.remove("hidden");
-          };
-      });
-    },
+    //   document.querySelectorAll(".register .selecte_2 span").forEach((e) => {
+    //     e.onclick = () => {
+    //       this.lang = e.innerHTML;
+    //       numbers.forEach((e) => e.classList.add("opacity-50"));
+    //       numbers[2].classList.remove("opacity-50");
+    //       content.forEach((e) => e.classList.add("hidden"));
+    //       content[2].classList.remove("hidden");
+    //     };
+    //     document.querySelector(".register .selecte_2 .button > div").onclick =
+    //       () => {
+    //         numbers.forEach((e) => e.classList.add("opacity-50"));
+    //         numbers[0].classList.remove("opacity-50");
+    //         content.forEach((e) => e.classList.add("hidden"));
+    //         content[0].classList.remove("hidden");
+    //       };
+    //   });
+    //   document.querySelectorAll(".register .selecte_3 > div").forEach((e) => {
+    //     e.onclick = () => {
+    //       this.class = e.innerHTML;
+    //       localStorage.setItem("type", this.type);
+    //       localStorage.setItem("Lang", this.lang);
+    //       localStorage.setItem("Class", this.class);
+    //       numbers.forEach((e) => e.classList.add("opacity-50"));
+    //       numbers[0].classList.remove("opacity-50");
+    //       content.forEach((e) => e.classList.add("hidden"));
+    //       content[0].classList.remove("hidden");
+    //       this.value = true;
+    //     };
+    //     document.querySelector(".register .selecte_3 .button > div").onclick =
+    //       () => {
+    //         numbers.forEach((e) => e.classList.add("opacity-50"));
+    //         numbers[1].classList.remove("opacity-50");
+    //         content.forEach((e) => e.classList.add("hidden"));
+    //         content[1].classList.remove("hidden");
+    //       };
+    //   });
+    // },
     close_2() {
       this.$emit("close_2");
     },
@@ -875,6 +932,9 @@ input {
     cursor: pointer;
     padding: 6px 12px;
   }
+}
+.v-field__append-inner {
+  display: none !important;
 }
 @media (min-width: 1200px) {
 }
