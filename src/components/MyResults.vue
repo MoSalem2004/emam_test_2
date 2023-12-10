@@ -328,6 +328,7 @@ export default {
         );
         const average = sum / (Array.length * 100);
         const result = (average * 100).toFixed(0);
+        console.log(result);
         // Percents[e].innerHTML = `${result}%`;
         // value[e].innerHTML = `${result}%`;
 

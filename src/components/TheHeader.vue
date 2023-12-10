@@ -53,6 +53,7 @@
               <div v-bind="props">
                 <div
                   class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
+                  @click="State"
                 >
                   {{ firstLetters }}
                 </div>
@@ -62,6 +63,7 @@
               <v-list-item>
                 <div style="position: relative">
                   <div class="user">
+                  <div class="user" v-if="state">
                     <div
                       style="
                         background: #fff;
@@ -392,7 +394,6 @@ export default {
   &:not(:last-child) {
     border-bottom: 1px solid #eee;
   }
-}
 .Header {
   transition: 0.5s;
 }

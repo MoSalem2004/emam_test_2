@@ -3,8 +3,11 @@
     <div class="container">
       <div class="main_title">معرض الصور</div>
       <div class="Add_Img">
-        <font-awesome-icon :icon="['fas', 'times']" />
-        <!-- @click="" -->
+        <font-awesome-icon
+          :icon="['fas', 'times']"
+  
+        />
+          <!-- @click="" -->
       </div>
       <div class="buttons flex items-center gap-2.5 justify-between">
         <div class="flex items-center gap-2.5">
