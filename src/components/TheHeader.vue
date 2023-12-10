@@ -53,7 +53,6 @@
               <div v-bind="props">
                 <div
                   class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
-                  @click="State"
                 >
                   {{ firstLetters }}
                 </div>
@@ -62,7 +61,7 @@
             <v-list>
               <v-list-item>
                 <div style="position: relative">
-                  <div class="user" v-if="state">
+                  <div class="user">
                     <div
                       style="
                         background: #fff;
@@ -373,6 +372,11 @@ export default {
 .v-menu > .v-overlay__content {
   min-width: 300px !important;
 }
+.hover-0:hover {
+  .v-list-item-title {
+    color: #fff !important;
+  }
+}
 .v-list-item-title {
   a {
     display: flex;
@@ -387,10 +391,6 @@ export default {
 
   &:not(:last-child) {
     border-bottom: 1px solid #eee;
-  }
-  &:hover {
-    // transform: translateX(7px);
-    // background: #fafafa;
   }
 }
 .Header {

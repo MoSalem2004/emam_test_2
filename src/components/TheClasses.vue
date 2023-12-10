@@ -2,8 +2,96 @@
   <div id="TheClasses" class="TheClasses">
     <div class="container">
       <div class="main_title">الفرق الدراسية</div>
-      <div class="box shadow p-2.5 rounded">
-        <div class="number flex justify-center gap-10 mb-5">
+      <v-card class="mx-auto" width="100%">
+        <v-card-title
+          style="padding: 10px"
+          class="text-h6 font-weight-regular justify-space-between mb-2.5 hover-0"
+        >
+          <v-avatar v-text="step"></v-avatar>
+          <span
+            style="font-size: 20px; font-weight: bold; font-family: system-ui"
+            >{{ currentTitle }}</span
+          >
+        </v-card-title>
+
+        <v-window v-model="step">
+          <v-window-item :value="1">
+            <div
+              class="selecte_1 flex justify-center gap-2.5 flex-wrap selecte"
+            >
+              <span
+                class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border"
+                @click="select_1"
+                >كلية الشريعة و القانون</span
+              >
+              <span
+                class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border"
+                @click="select_1"
+                >معهد أعوان القضاء</span
+              >
+            </div>
+          </v-window-item>
+
+          <v-window-item :value="2">
+            <div
+              class="selecte_2 flex justify-center gap-2.5 flex-wrap selecte"
+            >
+              <span
+                @click="select_2"
+                class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border"
+                >عربي</span
+              >
+              <span
+                @click="select_2"
+                class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border"
+                >English</span
+              >
+            </div>
+          </v-window-item>
+
+          <v-window-item :value="3">
+            <div class="selecte_3 flex justify-center gap-2.5 flex-wrap">
+              <router-link
+                to="/Main_Class"
+                v-for="Class in classes"
+                :key="Class"
+                class="border-gray-300 border rounded flex justify-center items-center w-23 p-10 cursor-pointer hover_color_border"
+              >
+                {{ Class }}
+              </router-link>
+            </div>
+          </v-window-item>
+        </v-window>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-btn
+            v-if="step > 1"
+            variant="text"
+            @click="step--"
+            style="
+              color: var(--main-color);
+              border: 1px solid var(--main-color);
+            "
+          >
+            <!-- border: 1px solid var(--main-color); -->
+            السابق
+          </v-btn>
+          <v-spacer></v-spacer>
+          <!-- <v-btn
+            v-if="step < 3"
+            color="var(--main-color)"
+            variant="flat"
+            @click="step++"
+            style="color: #fff"
+          >
+            التالي
+          </v-btn> -->
+        </v-card-actions>
+      </v-card>
+      <!-- <div class="box shadow p-2.5 rounded"> -->
+      <!-- <div class="number flex justify-center gap-10 mb-5">
           <div class="feat relative">
             <span
               class="absolute h-1 w-10 -right-full top-1/2 bg-[--main-color]"
@@ -37,25 +125,25 @@
               3
             </div>
           </div>
-        </div>
-        <div class="content">
-          <div class="selecte_1 flex justify-center gap-2.5 flex-wrap mb-2.5">
+        </div> -->
+      <!-- <div class="content"> -->
+      <!-- <div class="selecte_1 flex justify-center gap-2.5 flex-wrap mb-2.5">
             <span
-              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
+              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border  "
               >كلية الشريعة و القانون</span
             >
             <span
-              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
+              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border  "
               >معهد أعوان القضاء</span
             >
-          </div>
-          <div class="selecte_2 hidden flex justify-center gap-2.5 flex-wrap">
+          </div> -->
+      <!-- <div class="selecte_2 hidden flex justify-center gap-2.5 flex-wrap">
             <span
-              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
+              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border  "
               >عربي</span
             >
             <span
-              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
+              class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border  "
               >English</span
             >
             <div class="button w-85 mb-2.5">
@@ -65,8 +153,8 @@
                 السابق
               </div>
             </div>
-          </div>
-          <div class="selecte_3 hidden flex justify-center gap-2.5 flex-wrap">
+          </div> -->
+      <!-- <div class="selecte_3 hidden flex justify-center gap-2.5 flex-wrap">
             <router-link
               to="/Main_Class"
               v-for="Class in classes"
@@ -82,9 +170,9 @@
                 السابق
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> -->
+      <!-- </div> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -105,66 +193,49 @@ export default {
         "الفرقة الثالثة",
         "الفرقة الرابعة",
       ],
+      step: 1,
     };
   },
+  computed: {
+    currentTitle() {
+      switch (this.step) {
+        case 1:
+          return "الدراسة";
+        case 2:
+          return "القسم";
+        default:
+          return "الفرقة";
+      }
+    },
+  },
   methods: {
+    select_1() {
+      this.step++;
+      setTimeout(() => {
+        document.querySelectorAll(".selecte_2 span").forEach((e) => {
+          e.onclick = () => {
+            this.lang = e.innerHTML;
+          };
+        });
+      }, 1);
+    },
+    select_2() {
+      this.step++;
+      setTimeout(() => {
+        document.querySelectorAll(".selecte_3 a").forEach((e) => {
+          e.onclick = () => {
+            this.class = e.innerHTML;
+            localStorage.setItem("updateType", this.type);
+            localStorage.setItem("updateLang", this.lang);
+            localStorage.setItem("updateClass", this.class);
+          };
+        });
+      }, 2);
+    },
     select() {
-      let numbers = document.querySelectorAll(".number .feat > div");
-      let content = document.querySelectorAll(".content > div");
-      document.querySelectorAll(".selecte_1 span")[0].onclick = () => {
-        this.type = document.querySelectorAll(".selecte_1 span")[0].innerHTML;
-        numbers.forEach((e) => e.classList.add("opacity-50"));
-        numbers[1].classList.remove("opacity-50");
-        content.forEach((e) => e.classList.add("hidden"));
-        content[1].classList.remove("hidden");
-        document
-          .querySelectorAll(".selecte_2 span")[1]
-          .classList.remove("hidden");
-        document.querySelectorAll(".selecte_3 a")[2].classList.remove("hidden");
-        document.querySelectorAll(".selecte_3 a")[3].classList.remove("hidden");
-      };
-      document.querySelectorAll(".selecte_1 span")[1].onclick = () => {
-        this.type = document.querySelectorAll(".selecte_1 span")[1].innerHTML;
-        numbers.forEach((e) => e.classList.add("opacity-50"));
-        numbers[1].classList.remove("opacity-50");
-        content.forEach((e) => e.classList.add("hidden"));
-        content[1].classList.remove("hidden");
-        document.querySelectorAll(".selecte_2 span")[1].classList.add("hidden");
-        document.querySelectorAll(".selecte_3 a")[2].classList.add("hidden");
-        document.querySelectorAll(".selecte_3 a")[3].classList.add("hidden");
-      };
-
-      document.querySelectorAll(".selecte_2 span").forEach((e) => {
+      document.querySelectorAll(".selecte_1 span").forEach((e) => {
         e.onclick = () => {
-          this.lang = e.innerHTML;
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[2].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[2].classList.remove("hidden");
-        };
-        document.querySelector(".selecte_2 .button > div").onclick = () => {
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[0].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[0].classList.remove("hidden");
-        };
-      });
-      document.querySelectorAll(".selecte_3 a").forEach((e) => {
-        e.onclick = () => {
-          this.class = e.innerHTML;
-          localStorage.setItem("updateType", this.type);
-          localStorage.setItem("updateLang", this.lang);
-          localStorage.setItem("updateClass", this.class);
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[0].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[0].classList.remove("hidden");
-        };
-        document.querySelector(".selecte_3 .button > div").onclick = () => {
-          numbers.forEach((e) => e.classList.add("opacity-50"));
-          numbers[1].classList.remove("opacity-50");
-          content.forEach((e) => e.classList.add("hidden"));
-          content[1].classList.remove("hidden");
+          this.type = e.innerHTML;
         };
       });
     },
@@ -172,6 +243,37 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.v-avatar.v-avatar--density-default {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background: var(--main-color) !important;
+  color: #fff;
+}
+.v-card-title {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center;
+  gap: 10px;
+}
+.selecte {
+  & > span {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 16px;
+    width: 46% !important;
+    font-family: system-ui;
+    text-align: center;
+  }
+}
+.selecte_3 > a {
+  color: var(--main-color) !important;
+  font-weight: bold;
+  font-size: 16px;
+  width: 46% !important;
+  font-family: system-ui;
+  text-align: center;
+}
 @media (min-width: 1200px) {
 }
 
@@ -182,11 +284,13 @@ export default {
   .content > div {
     flex-direction: column;
     & > span {
-      width: 100%;
+      width: 90%;
+      margin: auto;
     }
   }
   .selecte_3 > a {
-    width: 100%;
+    width: 90%;
+    margin: auto;
     & > span {
       flex-direction: column;
     }

@@ -15,7 +15,7 @@
       </div>
       <div class="flex justify-center items-center h-80 contain">
         <div class="right w-1/2 relative">
-          <img src="../assets/الامام.png" alt="" class="m-auto" />
+          <img src="../assets/الإمام-بدون-خلفية2.webp" alt="" class="m-auto" />
           <div class="absolute -bottom-2.5">
             <img
               src="../assets/Animation - 1701644199286.gif"

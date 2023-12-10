@@ -126,7 +126,7 @@
         </div>
         <div class="contain flex flex-wrap gap-2.5">
           <div
-            class="test border p-2.5 w-32 flex flex-wrap"
+            class="test border border-[--main-color] rounded p-2.5 w-32 flex flex-wrap"
             v-for="(Result, index) in Results_1"
             :key="Result"
           >
@@ -198,7 +198,10 @@
                 border-radius: 5px;
               "
             >
-              <font-awesome-icon :icon="['fas', 'clock']" />
+              <font-awesome-icon
+                :icon="['fas', 'clock']"
+                color="var(--main-color)"
+              />
               <div>
                 {{
                   new Date(Result.Time.toMillis()).toLocaleString(["ar"], {
@@ -313,6 +316,7 @@ export default {
       const docSnap = await getDoc(docRef);
       const docData = docSnap.data();
       for (let e = 0; e < this.Sub.length; e++) {
+        Array = [];
         for (let i = 0; i < docData.resultes.length; i++) {
           if (docData.resultes[i].Sub === this.Sub[e]) {
             Array.push(docData.resultes[i].percent);

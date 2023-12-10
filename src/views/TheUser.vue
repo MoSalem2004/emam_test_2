@@ -14,10 +14,10 @@
           <font-awesome-icon :icon="['fas', 'id-card']" />
           <span>حسابي</span>
         </div>
+        <!-- v-show="ShowAppreciations" -->
+        <!-- v-if="RankingShow" -->
         <div
-          v-show="ShowAppreciations"
-          v-if="RankingShow"
-          class="ranking flex items-center gap-2.5"
+          class="ranking flex items-center gap-2.5 justify-between"
           style="
             background: rgb(255, 255, 255);
             padding: 10px;
@@ -25,38 +25,187 @@
             color: var(--main-color);
             font-weight: bold;
             font-size: 17px;
-            align-items: center;
-            justify-content: center;
           "
         >
+          <div
+            class="flex gap-2.5"
+            style="align-items: center; justify-content: center"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'trophy']"
+              color="gold"
+              v-if="index1"
+            />
+            <font-awesome-icon
+              :icon="['fas', 'trophy']"
+              color="silver"
+              v-if="index2"
+            />
+            <font-awesome-icon
+              :icon="['fas', 'trophy']"
+              color="#c77b30"
+              v-if="index3"
+            />
+            <font-awesome-icon
+              v-if="top10"
+              :icon="['fas', 'medal']"
+              color="gold"
+            />
+            <font-awesome-icon
+              v-if="top50"
+              :icon="['fas', 'certificate']"
+              color="gold"
+            />
+            <font-awesome-icon
+              v-if="top100"
+              :icon="['fas', 'certificate']"
+              color="silver"
+            />
+            <div>الترتيب</div>
+            <div
+              style="
+                isplay: flex;
+                background: #fafafa;
+                align-items: center;
+                justify-content: center;
+                border-radius: 5px;
+                font-weight: bold;
+                padding: 0 5px;
+              "
+            >
+              {{ Ranking }}
+            </div>
+          </div>
           <font-awesome-icon
-            :icon="['fas', 'trophy']"
-            color="gold"
-            v-if="index1"
+            :icon="['fas', 'circle-info']"
+            color="info !important"
+            style="
+              font-size: 24px;
+              border-right: 2px solid #ddd;
+              padding-right: 10px;
+            "
+            @click="Info = !Info"
           />
-          <font-awesome-icon
-            :icon="['fas', 'trophy']"
-            color="silver"
-            v-if="index2"
-          />
-          <font-awesome-icon
-            :icon="['fas', 'trophy']"
-            color="#c77b30"
-            v-if="index3"
-          />
-          <font-awesome-icon
-            v-if="top10"
-            :icon="['fas', 'medal']"
-            color="gold"
-          />
-          <font-awesome-icon
-            v-if="top50"
-            :icon="['fas', 'certificate']"
-            color="gold"
-          />
-          <div>الترتيب</div>
-          <div>
-            {{ Ranking }}
+          <div
+            v-if="Info"
+            class="main_Overlay"
+            style="z-index: 101"
+            @click="Info = !Info"
+          ></div>
+          <div
+            v-if="Info"
+            class="Info bg-white fixed z-10 rounded p-2.5 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 max-h-90 overflow-auto"
+            style="width: 90%; z-index: 101"
+          >
+            <div class="flex justify-between align-center p-2.5">
+              <div style="font-size: 25px; color: var(--main-color)">
+                الشارات
+              </div>
+              <font-awesome-icon
+                @click="Info = !Info"
+                :icon="['fas', 'circle-xmark']"
+                style="font-size: 25px; color: red"
+              />
+            </div>
+            <div>
+              <table border="1" width="100%">
+                <thead>
+                  <tr>
+                    <th>الشارة</th>
+                    <th>الترتيب</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="">
+                      <div class="flex align-center p-2.5 gap-2.5">
+                        <font-awesome-icon
+                          :icon="['fas', 'trophy']"
+                          color="gold"
+                        />
+                        <div>الكأس الذهبي</div>
+                      </div>
+                    </td>
+                    <td>الأول</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex align-center p-2.5 gap-2.5">
+                        <font-awesome-icon
+                          :icon="['fas', 'trophy']"
+                          color="silver"
+                        />
+                        <div>الكأس الفضي</div>
+                      </div>
+                    </td>
+                    <td>الثاني</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex align-center p-2.5 gap-2.5">
+                        <font-awesome-icon
+                          :icon="['fas', 'trophy']"
+                          color="#c77b30"
+                        />
+                        <div>الكأس البرونزي</div>
+                      </div>
+                    </td>
+                    <td>الثالث</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex align-center p-2.5 gap-2.5">
+                        <font-awesome-icon
+                          :icon="['fas', 'medal']"
+                          color="gold"
+                        />
+                        <div>الميدالية الذهبية</div>
+                      </div>
+                    </td>
+                    <td>العشرة الأوائل</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex align-center p-2.5 gap-2.5">
+                        <font-awesome-icon
+                          :icon="['fas', 'certificate']"
+                          color="gold"
+                        />
+                        <div>الشارة الذهبية</div>
+                      </div>
+                    </td>
+                    <td>الخمسون الأوائل</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex align-center p-2.5 gap-2.5">
+                        <font-awesome-icon
+                          :icon="['fas', 'certificate']"
+                          color="silver"
+                        />
+                        <div>الشارة الفضية</div>
+                      </div>
+                    </td>
+                    <td>المائة الأوائل</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="text"
+                style="
+                  padding: 10px;
+                  background: #fafafa;
+                  margin: 10px auto;
+                  border-radius: 5px;
+                  line-height: 2;
+                  color: var(--main-color);
+                "
+              >
+                في حالة حصولك علي شارة من هذه الشارات حتي آخر يوم في الشهر
+                ستتواصل معك أكاديمية الإمام لإستلام جائزتك و أرسل صورتك ليتم
+                تكريمك , بالتوفيق للجميع ❤️
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +221,7 @@
               border-radius: 5px;
               font-weight: bold;
               background: #fff;
+              color: var(--main-color);
             "
           >
             <font-awesome-icon :icon="['fas', 'user-graduate']" />
@@ -86,6 +236,7 @@
               border-radius: 5px;
               font-weight: bold;
               background: #fff;
+              color: var(--main-color);
             "
           >
             <font-awesome-icon icon="fa-solid fa-phone" />
@@ -98,6 +249,7 @@
               border-radius: 5px;
               font-weight: bold;
               background: #fff;
+              color: var(--main-color);
             "
           >
             <font-awesome-icon :icon="['fas', 'at']" />
@@ -110,6 +262,7 @@
               border-radius: 5px;
               font-weight: bold;
               background: #fff;
+              color: var(--main-color);
             "
           >
             <font-awesome-icon :icon="['fas', 'location-dot']" />
@@ -122,6 +275,7 @@
               border-radius: 5px;
               font-weight: bold;
               background: #fff;
+              color: var(--main-color);
             "
           >
             <font-awesome-icon :icon="['fas', 'chalkboard-user']" />
@@ -260,7 +414,6 @@ export default {
       Ranking: "",
       TypeOfClass: "",
       User: "",
-
       interval: 0,
       value: 0,
       ShowAppreciations: null,
@@ -269,7 +422,9 @@ export default {
       index3: null,
       top10: null,
       top50: null,
+      top100: null,
       RankingShow: null,
+      Info: null,
     };
   },
   methods: {
@@ -353,6 +508,7 @@ export default {
       // عرض العناصر المفرزة للمستخدم مع رقم الفهرس
       ReducedArray.forEach((item, index) => {
         item.originalIndexes.forEach(() => {
+          // console.log(this.TotalResult);
           if (this.TotalResult === Math.floor(item.value)) {
             this.RankingShow = true;
             this.Ranking = index + 1;
@@ -373,6 +529,8 @@ export default {
               this.top50 = true;
             } else if (index + 1 < 51) {
               this.top50 = true;
+            } else if (index + 1 < 101) {
+              this.top100 = true;
             }
           }
         });
@@ -461,7 +619,13 @@ export default {
   margin: 1rem;
 }
 .ranking {
-  transition: 0.3s;
+  transition: 0.5s;
+}
+.Info {
+  background-image: url("../assets/WhatsApp Image 2023-12-04 at 11.00.58 PM.jpeg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
 }
 .v-progress-circular__content {
   font-size: 20px !important;
@@ -481,6 +645,13 @@ export default {
   color: #fff !important;
   background: var(--main-color) !important;
 }
+table th,
+td {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: var(--main-color);
+}
 @media (min-width: 1200px) {
 }
 
@@ -488,6 +659,13 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .title {
+    flex-direction: column;
+  }
+  .ranking {
+    width: 100%;
+    margin-top: 10px;
+  }
   .TheUser {
     margin-top: -20px !important;
     .container {
