@@ -212,7 +212,6 @@ export default {
       this.BIllShow = !this.BIllShow;
     },
     async GetResult(index) {
-      console.log(index);
       this.ResultShow = true;
       this.Result = [];
       let theResult;
@@ -228,17 +227,14 @@ export default {
         ) {
           this.Result.push(doc.data().resultes);
           this.Result.push(doc.data().resultes);
-          console.log("ALL.Result", this.Result);
           this.Students.sort((a, b) => b.AllResults - a.AllResults);
           theResult = this.Result[index];
         }
       });
       this.Result = theResult;
       // this.Result.sort((a, b) => b.Time.toMillis() - a.Time.toMillis());
-      console.log("this.Result", this.Result);
     },
     async GetBIll(index) {
-      console.log(index);
       this.BIllShow = true;
       this.BIll = [];
       let thebill;
@@ -258,14 +254,12 @@ export default {
       });
       this.BIll = thebill;
       this.BIll.sort((a, b) => b.Time.toMillis() - a.Time.toMillis());
-      console.log("this.BIll", this.BIll);
     },
     async GetData() {
       this.showDownloadIcon = false;
       this.Students = [];
       this.Male = [];
       this.Female = [];
-      console.log("GetData");
       const querySnapshot = await getDocs(collection(db, "الطلاب"));
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -277,10 +271,6 @@ export default {
           doc.data().Lang === this.Lang &&
           doc.data().Class === this.Class
         ) {
-          console.log("AllResults", " => ", doc.data().AllResults);
-          console.log(doc.id, " => ", doc.data().name_1);
-          console.log(doc.id, " => ", doc.data().name_2);
-          console.log(doc.id, " => ", doc.data().pay);
           let data = {
             Name: `${doc.data().name_1} ${doc.data().name_2} ${
               doc.data().name_3
@@ -296,10 +286,6 @@ export default {
           } else {
             this.Female.push(data.type);
           }
-
-          console.log(this.Students);
-        } else {
-          console.log("not");
         }
       });
     },
@@ -317,7 +303,6 @@ export default {
           TypeDevs[i].classList.add("active");
           LangDevs.forEach((e) => {
             e.classList.remove("hidden");
-            console.log(e);
             e.onclick = () => {
               LangDevs.forEach((e) => {
                 e.classList.remove("active");
@@ -335,16 +320,12 @@ export default {
                   let sentence =
                     document.querySelector(".box .Type.active").innerHTML;
                   let words = sentence.split(" ");
-                  console.log(words);
                   let firstWord = words[1];
                   this.Type = firstWord;
                   this.Lang =
                     document.querySelector(".box .Lang.active").innerHTML;
                   this.Class =
                     document.querySelector(".box .Class.active").innerHTML;
-                  console.log(this.Type);
-                  console.log(this.Lang);
-                  console.log(this.Class);
                   setTimeout(() => {
                     this.GetData();
                   }, 10);
@@ -355,29 +336,6 @@ export default {
           });
         };
       }
-      // for (let i = 0; i < TypeDevs.length; i++) {
-      //   TypeDevs[i].onclick = () => {
-      //     this.Type = TypeDevs[i].innerHTML;
-      //     LangDevs.forEach((e) => {
-      //       e.classList.remove("hidden");
-      //     });
-      //   };
-      // }
-      // for (let i = 0; i < LangDevs.length; i++) {
-      //   LangDevs[i].onclick = () => {
-      //     this.Lang = LangDevs[i].innerHTML;
-      //   };
-      // }
-      // for (let i = 0; i < classDevs.length; i++) {
-      //   classDevs[i].onclick = () => {
-      //     this.Class = classDevs[i].innerHTML;
-      //     console.log(this.Type);
-      //     console.log(this.Lang);
-      //     console.log(this.Class);
-      //     this.GetData();
-      //   };
-      // }
-      // this.Type =
     },
   },
 };

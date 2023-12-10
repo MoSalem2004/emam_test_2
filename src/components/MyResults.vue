@@ -300,16 +300,7 @@ export default {
     this.GetData();
   },
   methods: {
-    Progress() {
-      // console.log(+this.TotalResult);
-      // this.interval = setInterval(() => {
-      //   if (this.value === Math.round(+this.TotalResult) || 0) {
-      //     this.ShowAppreciations = true;
-      //     return (this.value = Math.round(+this.TotalResult) || 0);
-      //   }
-      //   this.value += 1;
-      // }, 100);
-    },
+    Progress() {},
     async GetPercent() {
       // let Percents = document.querySelectorAll(".AllResults .percent");
       // let value = document.querySelectorAll(".AllResults .value");
@@ -353,20 +344,10 @@ export default {
           Appreciations[e].innerHTML = "ضعيف جدا";
         }
       }
-      // this.value = Array_1;
-      // this.interval = Array_1;
 
-      // let normalArray = [...Array_1];
-      // console.log(normalArray); // سيطبع: [1, 2, 3]
-      // this.value = normalArray;
-      // console.log("value", [...this.value]);
-      // console.log("interval", [...this.interval]);
-      console.log(Array_1);
       for (let i = 0; i < Array_1.length; i++) {
         this.interval[i] = 0;
         this.value[i] = 0;
-        console.log(this.interval[i]);
-        console.log(typeof +Array_1[i]);
         this.interval[i] = setInterval(() => {
           if (this.value[i] === Math.round(+Array_1[i]) || 0) {
             //     this.ShowAppreciations = true;
@@ -379,7 +360,6 @@ export default {
         (accumulator, currentValue) => accumulator + parseFloat(currentValue),
         0
       );
-      console.log(sum);
       this.TotalResult = ((sum / +`${Array_1.length}00`) * 100).toFixed(0);
       // this.Appreciations = sum;
 
@@ -398,7 +378,6 @@ export default {
       }
       this.$emit("TotalResultFunction", Math.round(this.TotalResult));
       this.$emit("AppreciationsFunction", this.Appreciations);
-      console.log(this.TotalResult);
     },
     async GetDataByIndex(index) {
       this.Results_1 = [];
@@ -411,20 +390,16 @@ export default {
       for (let i = 0; i < docData.resultes.length; i++) {
         if (docData.resultes[i].Sub === this.Sub[index]) {
           this.Name_Sub = docData.resultes[i].Sub;
-          console.log(docData.resultes[i].Sub);
           this.ShowResult = true;
           this.Results_1.push(docData.resultes[i]);
           this.Results_1?.sort((a, b) => b.Time.toMillis() - a.Time.toMillis());
           Array.push(this.Results_1[0].percent);
         }
       }
-      console.log(Array);
       // this.Results_1;
       for (let i = 0; i < this.Results_1.length; i++) {
         this.interval_1[i] = 0;
         this.value_1[i] = 0;
-        console.log(this.interval_1[i]);
-        console.log(+this.Results_1[i].percent);
         this.interval_1[i] = setInterval(() => {
           if (
             this.value_1[i] === Math.round(+this.Results_1[i]?.percent) ||
@@ -457,20 +432,10 @@ export default {
           const uniqueValues = new Set(Array);
           this.Subjects = uniqueValues;
           const arrayMethod1 = [...this.Subjects];
-          console.log(arrayMethod1);
           this.Sub = arrayMethod1;
           setTimeout(() => {
             this.GetPercent();
           }, 10);
-          // State = true;
-          // if(docData.resultes[i].Sub === ) {
-
-          //   this.Results_1.push(docData.resultes[i]);
-          // console.log(docData.resultes);
-          // console.log(docData.resultes[i]);
-          // console.log(this.Results_1);
-          // const arrayMethod = [...this.Results_1];
-          // console.log(arrayMethod);
         } else {
           this.Results_2.push(docData.resultes[i]);
         }

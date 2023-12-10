@@ -335,8 +335,6 @@ export default {
       this.MyResult = !this.MyResult;
     },
     async AddResultInData() {
-      console.log("AddResultInData");
-
       const docRef = doc(db, "الطلاب", localStorage.getItem("userid"));
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -361,14 +359,11 @@ export default {
         for (let i = 0; i < docData.resultes.length; i++) {
           if (docData.resultes[i].Sub === localStorage.getItem("updateSub")) {
             Array.push(docData.resultes[i].TestNumber);
-            console.log(Array);
             this.StateSub = !Array.includes(index + 1);
-            console.log(Array);
           } else {
             this.StateSub = true;
           }
         }
-        console.log(this.StateSub);
         if (this.StateSub) {
           docData.resultes.push(newData);
         }
@@ -480,7 +475,6 @@ export default {
               .querySelector(".showresult")
               .classList.add("pointer-events-none");
             this.result += 1;
-            console.log(this.result);
             if (this.result !== 0) {
               this.percent = ((this.result / this.Allresult) * 100).toFixed(0);
             } else {

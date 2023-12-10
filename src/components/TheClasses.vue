@@ -152,8 +152,6 @@ export default {
       document.querySelectorAll(".selecte_3 a").forEach((e) => {
         e.onclick = () => {
           this.class = e.innerHTML;
-          console.log(e.innerHTML);
-          console.log(this.class);
           localStorage.setItem("updateType", this.type);
           localStorage.setItem("updateLang", this.lang);
           localStorage.setItem("updateClass", this.class);

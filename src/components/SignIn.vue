@@ -106,12 +106,11 @@ export default {
         const querySnapshot_Admin = await getDocs(q_Admin);
         if (!querySnapshot_Admin.empty) {
           this.$store.commit("setUserAdmin", "Admin");
-          console.log("Admin =>", this.UserAdmin);
         } else {
           this.$store.commit("setUserAdmin", "");
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
       try {
         const q_User = query(
@@ -121,12 +120,11 @@ export default {
         const querySnapshot_User = await getDocs(q_User);
         if (!querySnapshot_User.empty) {
           this.$store.commit("setUserAdmin", "User");
-          console.log("Admin =>", this.UserAdmin);
         } else {
           this.$store.commit("setUserAdmin", "");
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
     },
     close_1() {
@@ -135,7 +133,6 @@ export default {
 
     async login(event) {
       event.preventDefault();
-      console.log("login");
 
       try {
         const q_Admin = query(
@@ -145,7 +142,6 @@ export default {
         const querySnapshot_Admin = await getDocs(q_Admin);
         querySnapshot_Admin.forEach((doc) => {
           const user = doc.data();
-          console.log(user);
           const isPasswordCorrect_Admin = bcrypt.compareSync(
             this.password,
             user.Password
@@ -173,7 +169,6 @@ export default {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           const user = doc.data();
-          console.log(user);
           const isPasswordCorrect = bcrypt.compareSync(
             this.password,
             user.password
@@ -192,7 +187,6 @@ export default {
             setTimeout(() => {
               this.State();
             }, 100);
-            console.log(true);
           } else {
             this.loginError = "بيانات تسجيل الدخول غير صحيحة !";
           }

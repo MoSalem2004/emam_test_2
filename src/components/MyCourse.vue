@@ -220,8 +220,7 @@ export default {
   },
   methods: {
     State() {
-      const urlParams = new URLSearchParams(window.location.search);
-
+      // const urlParams = new URLSearchParams(window.location.search);
       // جمع البيانات المطلوبة لحساب الهاش
       // const dataKeys = [
       //   "amount_cents",
@@ -245,12 +244,6 @@ export default {
       //   "source_data.type",
       //   "success",
       // ];
-      console.log(urlParams);
-      if (urlParams.get("success") === "true") {
-        console.log("Payment successful!");
-      } else {
-        console.log("Payment failed!");
-      }
     },
     async GetData() {
       const q = query(
@@ -263,9 +256,7 @@ export default {
         let AllDataArray = [];
         AllDataArray.push(user);
         this.AllData = AllDataArray[0];
-        console.log(this.AllData);
         this.AllData.sort((a, b) => b.Time.toMillis() - a.Time.toMillis());
-        console.log("AllData", this.AllData.length);
         this.ShowImg = false;
       });
       if (this.AllData.length === 0) {

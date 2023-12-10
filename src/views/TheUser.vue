@@ -226,8 +226,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 // import crypto from "crypto-js";
-import CryptoJS from "crypto-js";
-// الآن يمكنك استخدام 'crypto' في هذا الملف بشكل طبيعي
 import MyCourse from "../components/MyCourse.vue";
 import MyResults from "../components/MyResults.vue";
 export default {
@@ -287,7 +285,6 @@ export default {
       }
     },
     Progress() {
-      console.log(Math.round(+this.TotalResult));
       if (!isNaN(Math.round(+this.TotalResult))) {
         this.interval = setInterval(() => {
           if (this.value === Math.round(+this.TotalResult) || 0) {
@@ -322,7 +319,6 @@ export default {
           array.push(doc.data().AllResults);
         }
       });
-      console.log(array);
       const filteredArray = array.filter((element) => element !== undefined);
       const sortedArray = filteredArray.sort((a, b) => b - a);
       const top10Elements = sortedArray.slice(0, 10);
@@ -356,12 +352,7 @@ export default {
 
       // عرض العناصر المفرزة للمستخدم مع رقم الفهرس
       ReducedArray.forEach((item, index) => {
-        item.originalIndexes.forEach((originalIndex) => {
-          console.log(
-            `المركز ${index + 1}: القيمة ${item.value}, الفهرس ${originalIndex}`
-          );
-          console.log("this.TotalResult =>", this.TotalResult);
-          console.log("tem.value=>", item.value);
+        item.originalIndexes.forEach(() => {
           if (this.TotalResult === Math.floor(item.value)) {
             this.RankingShow = true;
             this.Ranking = index + 1;
@@ -386,7 +377,6 @@ export default {
           }
         });
       });
-      console.log(ReducedArray);
       this.Progress();
     },
     CloseTogell_1() {
@@ -401,55 +391,6 @@ export default {
     async State() {
       const urlParams = new URLSearchParams(window.location.search);
 
-      const dataKeys = [
-        "amount_cents",
-        "created_at",
-        "currency",
-        "error_occured",
-        "has_parent_transaction",
-        "obj.id",
-        "integration_id",
-        "is_3d_secure",
-        "is_auth",
-        "is_capture",
-        "is_refunded",
-        "is_standalone_payment",
-        "is_voided",
-        "order.id",
-        "owner",
-        "pending",
-        "source_data.pan",
-        "source_data.sub_type",
-        "source_data.type",
-        "success",
-      ];
-
-      const test = dataKeys.map((key) => urlParams.get(key));
-
-      const secretKey = "DFDAACE2D9EF9DA02CAB73EFA36945DF";
-      const hashedData = CryptoJS.HmacSHA512(test, secretKey).toString(
-        CryptoJS.enc.Hex
-      );
-
-      console.log("Hmac =>", urlParams.get("hmac"));
-      console.log("Test =>", test);
-      console.log("hashedData =>", hashedData);
-
-      if (urlParams.get("hmac") === hashedData) {
-        console.log("ok Hmac");
-      } else {
-        console.log("Error Hmac");
-      }
-
-      if (
-        urlParams.get("success") === "true" &&
-        urlParams.get("pending") === "false"
-      ) {
-        console.log("Payment successful!");
-      } else {
-        console.log("Payment failed!");
-      }
-      console.log(urlParams.get("success"));
       const washingtonRef = doc(db, "الطلاب", localStorage.getItem("userid"));
 
       const washingtonSnap = await getDoc(washingtonRef);
@@ -458,7 +399,6 @@ export default {
 
       for (let i = 0; i < payArray.length; i++) {
         if (+urlParams.get("order") === payArray[i].order_id) {
-          console.log("order_id => ", urlParams.get("order"));
           if (
             urlParams.get("success") !== "true" &&
             urlParams.get("pending") === "false"
@@ -474,11 +414,8 @@ export default {
           }
         }
       }
-      console.log(+urlParams.get("order"));
-      console.log(payArray.length);
     },
     async GetData() {
-      console.log(typeof localStorage.getItem("userphone"));
       const q = query(
         collection(db, "الطلاب"),
         where("userid", "==", localStorage.getItem("userid"))
@@ -500,8 +437,6 @@ export default {
         this.Lang = user.Lang;
         this.TypeOfClass = user.TypeOfClass;
         this.User = user;
-        console.log(this.AllName);
-        console.log(user);
       });
       // setTimeout(() => {
       this.handleTotalResult();

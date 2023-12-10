@@ -53,299 +53,6 @@
           <v-btn type="submit" block class="mt-2">تم</v-btn>
         </v-form>
       </v-sheet>
-
-      <!-- <form action="POST">
-        <div>يرجي كتابة الإسم باللغة العربية</div>
-        <div class="small_container">
-          <div class="flex justify-between flex-wrap TheName">
-            <div class="w-32">
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="name"
-                    v-model="user.Name_1"
-                  />
-
-                  <label for="Name_1"
-                    ><font-awesome-icon :icon="['fas', 'user-edit']" /> الإسم
-                    الأول</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="w-32">
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="name"
-                    v-model="user.Name_2"
-                  />
-
-                  <label for="Name_2"
-                    ><font-awesome-icon :icon="['fas', 'user-edit']" /> الإسم
-                    الثاني</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="w-32">
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="name"
-                    v-model="user.Name_3"
-                  />
-
-                  <label for="Name_3"
-                    ><font-awesome-icon :icon="['fas', 'user-edit']" /> الإسم
-                    الثالث</label
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-between">
-            <div class="w-48">
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="phone"
-                    placeholder="Phone Number"
-                    v-model="user.phone"
-                  />
-
-                  <label for="phone"
-                    ><font-awesome-icon :icon="['fas', 'phone']" /> رقم
-                    الهاتف</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="w-48">
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="parents_phone"
-                    placeholder="Parent's Phone Number"
-                    v-model="user.parents_phone"
-                  />
-
-                  <label for="parents_phone"
-                    ><font-awesome-icon :icon="['fas', 'phone']" /> رقم هاتف ولي
-                    الأمر</label
-                  >
-                  <div
-                    class="absolute -translate-x-1/2 -translate-y-1/2 left-10 top-1/2 select"
-                  >
-                    اختياري
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="input-group mb-3">
-              <div class="form-floating">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="Email"
-                  placeholder="Email"
-                  v-model="user.email"
-                />
-
-                <label for="Email"
-                  ><font-awesome-icon :icon="['fas', 'at']" /> الإيميل</label
-                >
-              </div>
-            </div>
-          </div>
-          <div class="form-floating long mb-3">
-            <select
-              class="form-select"
-              id="floatingSelect"
-              aria-label="Floating label select example"
-              @change="handleSelectChange($event)"
-            >
-              <option
-                v-for="(option, index) in options"
-                :key="index"
-                :value="option"
-                @click="classActiveOption"
-              >
-                {{ option }}
-              </option>
-            </select>
-            <label for="floatingSelect">حدد مكان كليتك / معهدك</label>
-          </div>
-          <div class="border p-2.5 mb-3">
-            <h5>اختر فرقتك الدراسية</h5>
-            <div class="box register p-2.5 rounded">
-              <div class="number flex justify-center gap-10 mb-5">
-                <div class="feat relative">
-                  <span
-                    class="absolute h-1 w-10 -right-full top-1/2 bg-[--main-color]"
-                  ></span>
-                  <div
-                    class="bg-[--main-color] w-10 h-10 rounded-full p-2.5 flex justify-center items-center text-white text-xl"
-                  >
-                    1
-                  </div>
-                </div>
-                <div class="feat relative">
-                  <span
-                    class="absolute h-1 w-10 -right-full top-1/2 bg-[--main-color]"
-                  ></span>
-                  <div
-                    class="bg-[--main-color] w-10 h-10 rounded-full p-2.5 flex justify-center items-center text-white text-xl opacity-50"
-                  >
-                    2
-                  </div>
-                </div>
-                <div class="feat relative">
-                  <span
-                    class="absolute h-1 w-10 -right-full top-1/2 bg-[--main-color]"
-                  ></span>
-                  <span
-                    class="absolute h-1 w-10 -left-full top-1/2 bg-[--main-color]"
-                  ></span>
-                  <div
-                    class="bg-[--main-color] w-10 h-10 rounded-full p-2.5 flex justify-center items-center text-white text-xl opacity-50"
-                  >
-                    3
-                  </div>
-                </div>
-              </div>
-              <div class="content">
-                <div
-                  class="selecte_1 flex justify-center gap-2.5 flex-wrap mb-2.5"
-                >
-                  <span
-                    class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
-                    >كلية الشريعة و القانون</span
-                  >
-                  <span
-                    class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
-                    >معهد أعوان القضاء</span
-                  >
-                </div>
-                <div
-                  class="selecte_2 hidden flex justify-center gap-2.5 flex-wrap"
-                >
-                  <span
-                    class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
-                    >عربي</span
-                  >
-                  <span
-                    class="border-gray-300 border rounded flex justify-center items-center p-10 cursor-pointer hover_color_border w-5/12"
-                    >English</span
-                  >
-                  <div class="button w-85 mb-2.5">
-                    <div
-                      class="border border-[--main-color] p-2.5 rounded cursor-pointer w-min text-[--main-color] mt-2.5 hover_color"
-                    >
-                      السابق
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="selecte_3 hidden flex justify-center gap-2.5 flex-wrap"
-                >
-                  <div
-                    v-for="Class in classes"
-                    :key="Class"
-                    class="border-gray-300 border rounded flex justify-center items-center w-23 p-10 cursor-pointer hover_color_border"
-                  >
-                    {{ Class }}
-                  </div>
-                  <div class="button w-95 flex justify-between m-auto mb-2.5">
-                    <div
-                      class="border border-[--main-color] p-2.5 rounded cursor-pointer w-min text-[--main-color] mt-2.5 hover_color"
-                    >
-                      السابق
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-[#eee] p-2.5 flex items-center justify-between"
-              v-if="value"
-            >
-              <span>
-                لقد اخترت : {{ this.type }} / {{ this.lang }} / {{ this.class }}
-              </span>
-              <font-awesome-icon :icon="['fas', 'circle-check']" />
-            </div>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="form-floating">
-              <input
-                :type="showPassword_1 ? 'text' : 'password'"
-                class="form-control"
-                placeholder="كلمة السر"
-                v-model="user.password_1"
-              />
-              <label for="Password_1"
-                ><font-awesome-icon :icon="['fas', 'lock']" /> كلمة السر
-              </label>
-              <div
-                class="Show_Password absolute -translate-x-1/2 -translate-y-1/2 left-5 top-1/2"
-                @click="showPassword_1 = !showPassword_1"
-              >
-                <font-awesome-icon
-                  :icon="showPassword_1 ? ['fas', 'eye-slash'] : ['fas', 'eye']"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <div class="form-floating">
-              <input
-                :type="showPassword_2 ? 'text' : 'password'"
-                class="form-control"
-                placeholder="كلمة السر"
-                v-model="user.password_2"
-              />
-              <label for="Password_2"
-                ><font-awesome-icon :icon="['fas', 'lock']" /> تأكيد كلمة السر
-              </label>
-              <div
-                class="Show_Password absolute -translate-x-1/2 -translate-y-1/2 left-5 top-1/2"
-                @click="showPassword_2 = !showPassword_2"
-              >
-                <font-awesome-icon
-                  :icon="showPassword_2 ? ['fas', 'eye-slash'] : ['fas', 'eye']"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="error text-[red] text-center">
-          {{ this.ErrorMsg }}
-        </div>
-        <div class="Register_Login">
-          <div>
-            <button
-              @click.prevent="Register"
-              class="p-2.5 bg-[--main-color] text-white rounded"
-            >
-              انشئ الحساب
-            </button>
-          </div>
-        </div>
-      </form> -->
     </section>
   </div>
   <div id="user"></div>
@@ -489,16 +196,8 @@ export default {
           if (/.+@.+\..+/.test(value)) return true;
 
           return "البريد الإلكتروني غير صحيح";
-
-          // if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
         },
       ],
-      // items: [
-      //   "الكل",
-      //   "إضافة الإختبارات",
-      //   "إضافة الكورسات",
-      //   "الإطلاع علي إحصائيات الموقع",
-      // ],
     };
   },
   computed: {
@@ -516,12 +215,11 @@ export default {
         const querySnapshot_Admin = await getDocs(q_Admin);
         if (!querySnapshot_Admin.empty) {
           this.$store.commit("setUserAdmin", "Admin");
-          console.log("Admin =>", this.UserAdmin);
         } else {
           this.$store.commit("setUserAdmin", "");
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
       try {
         const q_User = query(
@@ -531,93 +229,13 @@ export default {
         const querySnapshot_User = await getDocs(q_User);
         if (!querySnapshot_User.empty) {
           this.$store.commit("setUserAdmin", "User");
-          console.log("Admin =>", this.UserAdmin);
         } else {
           this.$store.commit("setUserAdmin", "");
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
     },
-    // select() {
-    //   let numbers = document.querySelectorAll(".register .number .feat > div");
-    //   let content = document.querySelectorAll(".register .content > div");
-    //   document.querySelectorAll(".register .selecte_1 span")[0].onclick =
-    //     () => {
-    //       this.type = document.querySelectorAll(
-    //         ".register .selecte_1 span"
-    //       )[0].innerHTML;
-    //       numbers.forEach((e) => e.classList.add("opacity-50"));
-    //       numbers[1].classList.remove("opacity-50");
-    //       content.forEach((e) => e.classList.add("hidden"));
-    //       content[1].classList.remove("hidden");
-    //       document
-    //         .querySelectorAll(".register .selecte_2 span")[1]
-    //         .classList.remove("hidden");
-    //       document
-    //         .querySelectorAll(".register .selecte_3 > div")[2]
-    //         .classList.remove("hidden");
-    //       document
-    //         .querySelectorAll(".register .selecte_3 > div")[3]
-    //         .classList.remove("hidden");
-    //     };
-    //   document.querySelectorAll(".register .selecte_1 span")[1].onclick =
-    //     () => {
-    //       this.type = document.querySelectorAll(
-    //         ".register .selecte_1 span"
-    //       )[1].innerHTML;
-    //       numbers.forEach((e) => e.classList.add("opacity-50"));
-    //       numbers[1].classList.remove("opacity-50");
-    //       content.forEach((e) => e.classList.add("hidden"));
-    //       content[1].classList.remove("hidden");
-    //       document
-    //         .querySelectorAll(".register .selecte_2 span")[1]
-    //         .classList.add("hidden");
-    //       document
-    //         .querySelectorAll(".register .selecte_3> div")[2]
-    //         .classList.add("hidden");
-    //       document
-    //         .querySelectorAll(".register .selecte_3> div")[3]
-    //         .classList.add("hidden");
-    //     };
-
-    //   document.querySelectorAll(".register .selecte_2 span").forEach((e) => {
-    //     e.onclick = () => {
-    //       this.lang = e.innerHTML;
-    //       numbers.forEach((e) => e.classList.add("opacity-50"));
-    //       numbers[2].classList.remove("opacity-50");
-    //       content.forEach((e) => e.classList.add("hidden"));
-    //       content[2].classList.remove("hidden");
-    //     };
-    //     document.querySelector(".register .selecte_2 .button > div").onclick =
-    //       () => {
-    //         numbers.forEach((e) => e.classList.add("opacity-50"));
-    //         numbers[0].classList.remove("opacity-50");
-    //         content.forEach((e) => e.classList.add("hidden"));
-    //         content[0].classList.remove("hidden");
-    //       };
-    //   });
-    //   document.querySelectorAll(".register .selecte_3 > div").forEach((e) => {
-    //     e.onclick = () => {
-    //       this.class = e.innerHTML;
-    //       localStorage.setItem("type", this.type);
-    //       localStorage.setItem("Lang", this.lang);
-    //       localStorage.setItem("Class", this.class);
-    //       numbers.forEach((e) => e.classList.add("opacity-50"));
-    //       numbers[0].classList.remove("opacity-50");
-    //       content.forEach((e) => e.classList.add("hidden"));
-    //       content[0].classList.remove("hidden");
-    //       this.value = true;
-    //     };
-    //     document.querySelector(".register .selecte_3 .button > div").onclick =
-    //       () => {
-    //         numbers.forEach((e) => e.classList.add("opacity-50"));
-    //         numbers[1].classList.remove("opacity-50");
-    //         content.forEach((e) => e.classList.add("hidden"));
-    //         content[1].classList.remove("hidden");
-    //       };
-    //   });
-    // },
     close_2() {
       this.$emit("close_2");
     },
@@ -681,7 +299,6 @@ export default {
         Samephone = true;
       }
       const egyptianPhoneNumberRegex = /^(10|11|12|15)[0-9]{8}$/;
-      console.log(+`0${+this.user.phone}`);
       if (!egyptianPhoneNumberRegex.test(+`0${+this.user.phone}`)) {
         phone = false;
         this.ErrorMsg =
@@ -695,12 +312,10 @@ export default {
         !arabicRegex.test(this.user.Name_3)
       ) {
         en = false;
-        console.log("en");
         this.ErrorMsg = "يرجي كتابة الإسم باللغة العربية";
       } else {
         en = true;
       }
-      console.log("this.value =>", this.value);
       if (
         this.user.Name_1 === "" ||
         this.user.Name_2 === "" ||
@@ -728,22 +343,11 @@ export default {
         SameData === true &&
         SameData1 === true
       ) {
-        console.log("Done");
         this.ErrorMsg = "";
-        const q = query(
-          collection(db, "الطلاب"),
-          where("phone", "==", 0 + +this.user.phone)
-        );
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          const user = doc.data().phone;
-          console.log(user);
-        });
 
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(this.user.password_1, salt);
         let pass = hashedPassword;
-        // this.user.password = hashedPassword;
         const str = document.querySelector(".form-floating>.form-select").value;
         const wordsArray = str.split(" "); // تحويل السلسلة إلى مصفوفة من الكلمات
         const lastWord = wordsArray[wordsArray.length - 1]; // الحصول على آخر كلمة في المصفوفة
@@ -767,7 +371,6 @@ export default {
           AllResults: 0,
         });
         await updateDoc(docRef, { userid: docRef.id });
-        console.log("Document written with ID: ", docRef.id);
         setTimeout(() => {
           localStorage.setItem("username_1", this.user.Name_1);
           localStorage.setItem("username_2", this.user.Name_2);

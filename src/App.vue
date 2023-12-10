@@ -48,10 +48,9 @@ export default {
         const querySnapshot_Admin = await getDocs(q_Admin);
         if (!querySnapshot_Admin.empty) {
           this.$store.commit("setUserAdmin", "Admin");
-          console.log("Admin =>", this.UserAdmin);
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
       try {
         const q_User = query(
@@ -61,10 +60,9 @@ export default {
         const querySnapshot_User = await getDocs(q_User);
         if (!querySnapshot_User.empty) {
           this.$store.commit("setUserAdmin", "User");
-          console.log("Admin =>", this.UserAdmin);
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
     },
   },

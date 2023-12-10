@@ -74,7 +74,7 @@ export default {
       let words = sentence.split(" ");
       let firstWord = words[0];
 
-      const docRef = await addDoc(
+      await addDoc(
         collection(
           db,
           `كورسات - ${firstWord} - ${localStorage.getItem(
@@ -94,7 +94,6 @@ export default {
           AllCourse: 0,
         }
       );
-      console.log("Document written with ID: ", docRef.id);
       document.getElementById("Sub").value = "";
       let term = document.querySelectorAll(".term > div");
       term.forEach((e) => {

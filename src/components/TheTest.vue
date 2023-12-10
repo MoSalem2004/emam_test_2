@@ -47,9 +47,8 @@ export default {
         const iframeLink = `https://accept.paymob.com/api/acceptance/iframes/${response.data.token}`;
 
         // يمكنك إعادة توجيه المستخدم إلى الـ iframeLink لتنفيذ عملية الدفع
-        console.log(iframeLink);
       } catch (error) {
-        console.error("خطأ في بدء عملية الدفع:", error);
+        error;
       }
     },
   },

@@ -302,13 +302,12 @@ export default {
         const querySnapshot_Admin = await getDocs(q_Admin);
         if (!querySnapshot_Admin.empty) {
           this.$store.commit("setUserAdmin", "Admin");
-          console.log("Admin =>", this.UserAdmin);
         }
         // else {
         //   this.$store.commit("setUserAdmin", "");
         // }
       } catch (error) {
-        console.log(error);
+        error;
       }
       try {
         const q_User = query(
@@ -318,15 +317,13 @@ export default {
         const querySnapshot_User = await getDocs(q_User);
         if (!querySnapshot_User.empty) {
           this.$store.commit("setUserAdmin", "User");
-          console.log("Admin =>", this.UserAdmin);
         }
         // else {
         //   this.$store.commit("setUserAdmin", "");
         // }
       } catch (error) {
-        console.log(error);
+        error;
       }
-      console.log("State =>", this.UserAdmin);
     },
     ShowLinks() {
       document.querySelector(".all_links").classList.toggle("hidden");
@@ -358,37 +355,15 @@ export default {
       }, 1009);
     },
     UserStateFunction() {
-      console.log("UserStateFunction");
       this.state = null;
-      if (localStorage.getItem("college_place")) {
-        const inputString = localStorage.getItem("college_place");
-        const Words = inputString.split(" ");
-
-        const lastWord = Words[Words.length - 1];
-        console.log(lastWord);
-      }
-      // if (localStorage.getItem("type")) {
-      //   this.thetype = localStorage.getItem("type") !== "بنين" ? "بكي " : "بك ";
-      // } else {
-      // }
       this.thetype = "";
-      console.log(localStorage.getItem("type"));
       this.UserName = `${localStorage.getItem("username_1")} 
         ${localStorage.getItem("username_2") || ""} 
         ${localStorage.getItem("username_3") || ""}`;
-      console.log(this.UserName);
       this.UserState = localStorage.getItem("userid") ? true : false;
       if (this.UserState) {
         var words = this.UserName.split(" ");
-        console.log(words.slice(0, -1));
-        // this.firstLetters = words
-        //   .slice(0, -3)
-        //   .map(function (word) {
-        //     return word.charAt(0) || "";
-        //   })
-        //   .join(" ");
         this.firstLetters = words[0].charAt(0) + " " + words[1].charAt(0);
-        console.log(this.firstLetters);
       }
     },
   },

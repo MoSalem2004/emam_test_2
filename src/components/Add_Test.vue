@@ -113,7 +113,6 @@ export default {
             e.classList.remove("ActiveClass");
           });
           btn[i].classList.add("ActiveClass");
-          console.log(btn[i]);
         };
       }
     },
@@ -129,7 +128,6 @@ export default {
         .format("HH:mm");
 
       // قم بطباعة الوقت المنسق
-      console.log(formattedTime);
       const newData = {
         Time: formattedTime,
         Date: this.formatDate(this.selectedDate),

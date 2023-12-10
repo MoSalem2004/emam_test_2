@@ -146,7 +146,6 @@ export default {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         this.Data.push(doc.data());
-        console.log(doc.id, " => ", doc.data());
       });
     },
     ShowAddAdminFunction() {
@@ -172,8 +171,6 @@ export default {
           Id: null,
         });
         await updateDoc(docRef, { Id: docRef.id });
-        console.log("Document written with ID: ", docRef.id);
-        console.log("AddAdmin");
         this.ShowAddAdmin = false;
         this.GetData();
       }
@@ -188,7 +185,6 @@ export default {
         result += characters.charAt(randomIndex);
       }
       this.password = result;
-      console.log(this.password);
       return result;
     },
 

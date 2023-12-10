@@ -261,7 +261,6 @@ export default {
                   user.pay[i].BillLang === this.Lang
                 ) {
                   if (user.pay[i].success === "true") {
-                    console.log("open Qu");
                     this.ShowTest = true;
                   } else {
                     this.PayTest = true;
@@ -271,13 +270,9 @@ export default {
             });
           } else {
             this.ShowTest = true;
-            console.log("open Qu");
           }
-        } else {
-          console.log("close Qu2");
         }
       }
-      console.log(state);
       if (state) {
         if (this.AllTest[index].Type === "مدفوع") {
           const q = query(
@@ -295,7 +290,6 @@ export default {
                 user.pay[i].BillLang === this.Lang
               ) {
                 if (user.pay[i].success === "true") {
-                  console.log("open Qu");
                   this.ShowTest = true;
                 } else {
                   this.PayTest = true;
@@ -305,10 +299,7 @@ export default {
           });
         } else {
           this.ShowTest = true;
-          console.log("open Qu");
         }
-        console.log(currentTime);
-        console.log(this.AllTest[index].Time);
       }
     },
     getvalues() {

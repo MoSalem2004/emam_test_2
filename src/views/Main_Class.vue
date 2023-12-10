@@ -437,7 +437,6 @@ import {
   updateDoc,
   doc,
   getDoc,
-  serverTimestamp,
 } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
@@ -502,11 +501,6 @@ export default {
     AddSub,
   },
   mounted() {
-    console.log("UserAdmin", this.UserAdmin);
-    console.log(
-      'localStorage.getItem("setUserAdmin")',
-      localStorage.getItem("setUserAdmin")
-    );
     setTimeout(() => {
       this.getvalues();
     }, 10);
@@ -515,105 +509,6 @@ export default {
     }, 100);
   },
   methods: {
-    GetToken() {},
-    // async ThePay() {
-    //   // https://elemam.vercel.app/TheUser
-    //   const axios = require("axios");
-
-    //   const myData = [];
-    //   // Merchant details
-    //   myData["merchant_id"] = "10000100";
-    //   myData["merchant_key"] = "46f0cd694581a";
-    //   myData["return_url"] = "http://www.yourdomain.co.za/return_url";
-    //   myData["cancel_url"] = "http://www.yourdomain.co.za/cancel_url";
-    //   myData["notify_url"] = "http://www.yourdomain.co.za/notify_url";
-    //   // Buyer details
-    //   myData["name_first"] = "First Name";
-    //   myData["name_last"] = "Last Name";
-    //   myData["email_address"] = "test@test.com";
-    //   // Transaction details
-    //   myData["m_payment_id"] = "1234";
-    //   myData["amount"] = "10.00";
-    //   myData["item_name"] = "Order#123";
-
-    //   // Generate signature
-    //   const myPassphrase = "jt7NOE43FZPn";
-    //   myData["signature"] = generateSignature(myData, myPassphrase);
-
-    //   // let htmlForm = `<form action="https://${pfHost}/eng/process" method="post">`;
-    //   // for (let key in myData) {
-    //   //   if (myData.hasOwnProperty(key)) {
-    //   //     value = myData[key];
-    //   //     if (value !== "") {
-    //   //       htmlForm += `<input name="${key}" type="hidden" value="${value.trim()}" />`;
-    //   //     }
-    //   //   }
-    //   // }
-    //   console.lod(myData);
-    //   // htmlForm += '<input type="submit" value="Pay Now" /></form>';
-
-    //   const dataToString = (dataArray) => {
-    //     // Convert your data array to a string
-    //     let pfParamString = "";
-    //     for (let key in dataArray) {
-    //       if (dataArray.hasOwnProperty(key)) {
-    //         pfParamString += `${key}=${encodeURIComponent(
-    //           dataArray[key].trim()
-    //         ).replace(/%20/g, "+")}&`;
-    //       }
-    //     }
-    //     // Remove last ampersand
-    //     return pfParamString.slice(0, -1);
-    //   };
-
-    //   const generatePaymentIdentifier = async (pfParamString) => {
-    //     const result = await axios
-    //       .post(`https://www.payfast.co.za/onsite/process`, pfParamString)
-    //       .then((res) => {
-    //         return res.data.uuid || null;
-    //       })
-    //       .catch((error) => {
-    //         console.error(error);
-    //       });
-    //     console.log("res.data", result);
-    //     return result;
-    //   };
-
-    //   const crypto = require("crypto");
-
-    //   const generateSignature = (data, passPhrase = null) => {
-    //     // Create parameter string
-    //     let pfOutput = "";
-    //     for (let key in data) {
-    //       if (data.hasOwnProperty(key)) {
-    //         if (data[key] !== "") {
-    //           pfOutput += `${key}=${encodeURIComponent(
-    //             data[key].trim()
-    //           ).replace(/%20/g, "+")}&`;
-    //         }
-    //       }
-    //     }
-
-    //     // Remove last ampersand
-    //     let getString = pfOutput.slice(0, -1);
-    //     if (passPhrase !== null) {
-    //       getString += `&passphrase=${encodeURIComponent(
-    //         passPhrase.trim()
-    //       ).replace(/%20/g, "+")}`;
-    //     }
-
-    //     return crypto.createHash("md5").update(getString).digest("hex");
-    //   };
-    //   // Generate signature (see Custom Integration -> Step 2)
-    //   myData["signature"] = generateSignature(myData, passPhrase);
-
-    //   // Convert the data array to a string
-    //   const pfParamString = dataToString(myData);
-
-    //   // Generate payment identifier
-    //   const identifier = await generatePaymentIdentifier(pfParamString);
-    //   console.log(identifier);
-    // },
     AllTest() {
       this.SubName = `جميع اختبارات ${this.Class}`;
       this.BillPrice = 100;
@@ -691,13 +586,10 @@ export default {
       });
 
       let response = await request.json();
-      console.log("Response:", response);
 
       if (response && response.token) {
         let token = response.token;
         this.pay_2(token);
-      } else {
-        console.error("Token not found in the response");
       }
       let token = response.token;
       this.pay_2(token);
@@ -726,9 +618,6 @@ export default {
       );
       let response = await request.json();
       let id = response.id;
-      console.log("Data =>", Data.billing_data);
-      console.log("response", response);
-      console.log(token);
       this.pay_3(token, id);
     },
 
@@ -738,7 +627,6 @@ export default {
       const documentSnapshot = await getDoc(documentRef);
       const fieldName = "pay";
       const currentFieldValue = documentSnapshot.data()[fieldName];
-      console.log(documentSnapshot.data());
       let Data = {
         auth_token: token,
         amount_cents: `${this.BillPrice}00`,
@@ -775,18 +663,10 @@ export default {
       );
 
       let response = await request.json();
-      console.log("Data:", Data);
-      console.log("Full Response:", response);
 
       // تحقق مما إذا كانت الاستجابة تحتوي على الـ token
       let TheToken = response.token;
-      console.log("Data:", Data);
-      console.log("Full Response:", response);
-      setTimeout(() => {
-        console.log(documentSnapshot.data());
-      }, 1000);
 
-      console.log(serverTimestamp());
       let newObject = {
         BillName: this.BillName,
         BillType: this.BillType,
@@ -824,13 +704,10 @@ export default {
       });
 
       let response = await request.json();
-      console.log("Response:", response);
 
       if (response && response.token) {
         let token = response.token;
         this.pay2(token);
-      } else {
-        console.error("Token not found in the response");
       }
       let token = response.token;
       this.pay2(token);
@@ -859,9 +736,6 @@ export default {
       );
       let response = await request.json();
       let id = response.id;
-      console.log("Data =>", Data.billing_data);
-      console.log("response", response);
-      console.log(token);
       this.pay3(token, id);
     },
 
@@ -871,7 +745,6 @@ export default {
       const documentSnapshot = await getDoc(documentRef);
       const fieldName = "pay";
       const currentFieldValue = documentSnapshot.data()[fieldName];
-      console.log(documentSnapshot.data());
       let Data = {
         auth_token: token,
         amount_cents: `${this.BillPrice}00`,
@@ -908,18 +781,10 @@ export default {
       );
 
       let response = await request.json();
-      console.log("Data:", Data);
-      console.log("Full Response:", response);
 
       // تحقق مما إذا كانت الاستجابة تحتوي على الـ token
       let TheToken = response.token;
-      console.log("Data:", Data);
-      console.log("Full Response:", response);
-      setTimeout(() => {
-        console.log(documentSnapshot.data());
-      }, 1000);
 
-      console.log(serverTimestamp());
       let newObject = {
         BillName: this.BillName,
         BillType: this.BillType,
@@ -983,7 +848,6 @@ export default {
       let inputs = document.querySelectorAll(".main_box  input");
       for (let i = 0; i < svg.length; i++) {
         svg[i].onclick = async () => {
-          console.log(svg[i]);
           this.num = i;
           box.forEach((e) => {
             e.classList.remove("border-[--main-color]");
@@ -996,14 +860,11 @@ export default {
             e.classList.add("pointer-events-none");
           });
           box[i].classList.add("border-[--main-color]");
-          console.log(box[i]);
           box[i].querySelectorAll("input").forEach((e) => {
             e.classList.remove("pointer-events-none");
           });
-          console.log(this.Ids[i]);
         };
       }
-      console.log("EditFunction");
     },
     getvalues() {
       this.Type = localStorage.getItem("updateType");
@@ -1015,7 +876,6 @@ export default {
       let Sub_Name = this.AllData;
       for (let i = 0; i < link.length; i++) {
         link[i].onclick = () => {
-          console.log(" Sub_Name[i].sub_name", Sub_Name[i].sub_name);
           localStorage.setItem("updateSub", Sub_Name[i].sub_name);
         };
       }
