@@ -5,7 +5,7 @@
       <v-card class="mx-auto" width="100%">
         <v-card-title
           style="padding: 10px"
-          class="text-h6 font-weight-regular justify-space-between mb-2.5"
+          class="text-h6 font-weight-regular justify-space-between mb-2.5 hover-0"
         >
           <v-avatar v-text="step"></v-avatar>
           <span
@@ -281,12 +281,23 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .selecte_1 {
+    flex-direction: column;
+    span {
+      width: 95% !important;
+      margin: auto;
+    }
+  }
   .content > div {
     flex-direction: column;
     & > span {
       width: 90%;
       margin: auto;
     }
+  }
+  .selecte_3 {
+    width: 95% !important;
+    margin: auto;
   }
   .selecte_3 > a {
     width: 90%;

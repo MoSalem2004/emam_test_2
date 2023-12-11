@@ -106,7 +106,7 @@
                     :icon="['fas', 'xmark']"
                   />
                 </div>
-                <v-card-text>
+                <v-card-text style="padding: 0">
                   <div
                     style="
                       font-family: system-ui;

@@ -28,64 +28,72 @@
           "
         >
           <div
-            class="flex gap-2.5"
-            style="align-items: center; justify-content: center"
+            class="flex gap-2.5 flex-col items-center gap-2.5 w-100"
+            style="align-items: start; justify-content: center"
+            v-if="RankingShow"
           >
-            <font-awesome-icon
-              :icon="['fas', 'trophy']"
-              color="gold"
-              v-if="index1"
-            />
-            <font-awesome-icon
-              :icon="['fas', 'trophy']"
-              color="silver"
-              v-if="index2"
-            />
-            <font-awesome-icon
-              :icon="['fas', 'trophy']"
-              color="#c77b30"
-              v-if="index3"
-            />
-            <font-awesome-icon
-              v-if="top10"
-              :icon="['fas', 'medal']"
-              color="gold"
-            />
-            <font-awesome-icon
-              v-if="top50"
-              :icon="['fas', 'certificate']"
-              color="gold"
-            />
-            <font-awesome-icon
-              v-if="top100"
-              :icon="['fas', 'certificate']"
-              color="silver"
-            />
-            <div>الترتيب</div>
             <div
-              style="
-                isplay: flex;
-                background: #fafafa;
-                align-items: center;
-                justify-content: center;
-                border-radius: 5px;
-                font-weight: bold;
-                padding: 0 5px;
-              "
+              class="justify-between w-100"
+              style="display: flex; align-items: center; gap: 10px"
             >
-              {{ Ranking }}
+              <div style="display: flex; align-items: center; gap: 10px">
+                <font-awesome-icon
+                  :icon="['fas', 'trophy']"
+                  color="gold"
+                  v-if="index1"
+                />
+                <font-awesome-icon
+                  :icon="['fas', 'trophy']"
+                  color="silver"
+                  v-if="index2"
+                />
+                <font-awesome-icon
+                  :icon="['fas', 'trophy']"
+                  color="#c77b30"
+                  v-if="index3"
+                />
+                <font-awesome-icon
+                  v-if="top10"
+                  :icon="['fas', 'medal']"
+                  color="gold"
+                />
+                <font-awesome-icon
+                  v-if="top50"
+                  :icon="['fas', 'certificate']"
+                  color="gold"
+                />
+                <font-awesome-icon
+                  v-if="top100"
+                  :icon="['fas', 'certificate']"
+                  color="silver"
+                />
+              </div>
+              <font-awesome-icon
+                :icon="['fas', 'circle-info']"
+                color="info !important"
+                style="font-size: 24px"
+                @click="Info = !Info"
+              />
+            </div>
+            <div class="w-100 flex flex-col gap-2.5">
+              <div>الترتيب</div>
+              <div
+                style="
+                  isplay: flex;
+                  background: #fafafa;
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: 5px;
+                  font-weight: bold;
+                  padding: 0 5px;
+                "
+              >
+                {{ Ranking }}
+                علي {{ AllStudent }} طالب
+              </div>
             </div>
           </div>
-          <font-awesome-icon
-            :icon="['fas', 'circle-info']"
-            color="info !important"
-            style="
-              font-size: 24px;
-              border-right: 2px solid #ddd;
-              padding-right: 10px;
-            "
-            @click="Info = !Info"
-          />
+
           <div
             v-if="Info"
             class="main_Overlay"
@@ -425,6 +433,7 @@ export default {
       top100: null,
       RankingShow: null,
       Info: null,
+      AllStudent: 0,
     };
   },
   methods: {
@@ -475,10 +484,12 @@ export default {
         }
       });
       const filteredArray = array.filter((element) => element !== undefined);
+      console.log("filteredArray =>", filteredArray.length);
+      this.AllStudent = filteredArray.length;
       const sortedArray = filteredArray.sort((a, b) => b - a);
-      const top10Elements = sortedArray.slice(0, 10);
+      // const top10Elements = sortedArray.slice(0, 10);
       // إنشاء مصفوفة مكونة من كائنات تحتوي على القيم والفهارس الأصلية
-      const indexedArray = top10Elements.map((value, index) => ({
+      const indexedArray = sortedArray.map((value, index) => ({
         value,
         originalIndex: index,
       }));
@@ -556,6 +567,15 @@ export default {
       const payArray = washingtonSnap.data().pay;
 
       for (let i = 0; i < payArray.length; i++) {
+        console.log(payArray[i].success);
+        if (payArray[i].success !== "true") {
+          const updatedPayArray = [...payArray];
+
+          // استخدم splice لحذف العنصر المحدد
+          updatedPayArray.splice(i, 1);
+
+          await updateDoc(washingtonRef, { pay: updatedPayArray });
+        }
         if (+urlParams.get("order") === payArray[i].order_id) {
           if (
             urlParams.get("success") !== "true" &&
@@ -659,6 +679,9 @@ td {
 }
 
 @media (max-width: 767px) {
+  td > div {
+    flex-direction: column;
+  }
   .title {
     flex-direction: column;
   }

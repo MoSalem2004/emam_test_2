@@ -9,7 +9,7 @@
     <div v-if="ShowMyResult" class="Msg">لا توجد فواتير لك</div>
 
     <div
-      class="box w-50 border p-2.5 rounded"
+      class="box w-50 border p-2.5 rounded bg-[#ffffff6e]"
       v-for="(data, index) in AllData"
       :key="data"
     >
@@ -37,7 +37,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -50,7 +50,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -64,7 +64,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -77,7 +77,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -91,7 +91,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -104,7 +104,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -118,7 +118,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -131,7 +131,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -145,7 +145,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -158,7 +158,7 @@
                 style="
                   width: 50%;
                   border: 1px solid var(--main-color);
-                  height: 40px;
+                  height: 50px;
                   display: flex;
                   align-items: center;
                   justify-content: center;

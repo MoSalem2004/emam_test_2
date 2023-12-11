@@ -8,7 +8,7 @@
     />
     <div v-if="ShowMyResult1" class="Msg">لا توجد نتائج لك</div>
     <div
-      class="box border p-2.5 Main_Box w-32 rounded bg-[#ffffff6e]"
+      class="box border p-2.5 Main_Box w-32 rounded"
       v-for="(Subject, index) in Subjects"
       :key="Subject"
     >
@@ -328,7 +328,6 @@ export default {
         );
         const average = sum / (Array.length * 100);
         const result = (average * 100).toFixed(0);
-        console.log(result);
         // Percents[e].innerHTML = `${result}%`;
         // value[e].innerHTML = `${result}%`;
 

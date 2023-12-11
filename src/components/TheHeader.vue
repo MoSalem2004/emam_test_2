@@ -1,15 +1,5 @@
 <template>
-  <div
-    class="Header border-b border-gray-300"
-    style="
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: transparent;
-      z-index: 100;
-    "
-  >
+  <div class="Header">
     <div class="container flex justify-between items-center gap-2.5">
       <div class="logo">
         <router-link to="/" class="flex items-center gap-2.5">
@@ -53,7 +43,6 @@
               <div v-bind="props">
                 <div
                   class="User_Logo bg-[--main-color] h-10 w-10 text-white rounded-full flex justify-center items-center cursor-pointer"
-                  @click="State"
                 >
                   {{ firstLetters }}
                 </div>
@@ -63,98 +52,99 @@
               <v-list-item>
                 <div style="position: relative">
                   <div class="user">
-                  <div class="user" v-if="state">
-                    <div
-                      style="
-                        background: #fff;
-                        color: var(--main-color);
-                        padding: 10px;
-                        border-radius: 5px;
-                        margin-bottom: 5px;
-                        border: 1px solid var(--main-color);
-                      "
-                      class="hover-0"
-                    >
-                      <v-list-item-title class="flex align-center gap-1.5">
-                        <span>👋🏻</span>
-                        <span> أهلا {{ thetype }} {{ UserName }} </span>
-                      </v-list-item-title>
-                    </div>
-                    <div
-                      style="
-                        background: #fff;
-                        color: var(--main-color);
-                        padding: 10px;
-                        border-radius: 5px;
-                        margin-bottom: 5px;
-                        border: 1px solid var(--main-color);
-                        cursor: pointer;
-                      "
-                      class="hover-0"
-                      v-if="UserAdmin === 'User'"
-                    >
-                      <router-link to="/TheUser">
+                    <div class="user">
+                      <div
+                        style="
+                          background: #fff;
+                          color: var(--main-color);
+                          padding: 10px;
+                          border-radius: 5px;
+                          margin-bottom: 5px;
+                          border: 1px solid var(--main-color);
+                        "
+                        class="hover-0"
+                      >
+                        <v-list-item-title class="flex align-center gap-1.5">
+                          <span>👋🏻</span>
+                          <span> أهلا {{ thetype }} {{ UserName }} </span>
+                        </v-list-item-title>
+                      </div>
+                      <div
+                        style="
+                          background: #fff;
+                          color: var(--main-color);
+                          padding: 10px;
+                          border-radius: 5px;
+                          margin-bottom: 5px;
+                          border: 1px solid var(--main-color);
+                          cursor: pointer;
+                        "
+                        class="hover-0"
+                        v-if="UserAdmin === 'User'"
+                      >
+                        <router-link to="/TheUser">
+                          <v-list-item-title
+                            class="flex align-center gap-1.5"
+                            style="color: var(--main-color)"
+                          >
+                            <font-awesome-icon :icon="['fas', 'id-card']" />
+                            <span> حسابي </span>
+                          </v-list-item-title></router-link
+                        >
+                      </div>
+                      <div
+                        style="
+                          background: #fff;
+                          color: var(--main-color);
+                          padding: 10px;
+                          border-radius: 5px;
+                          margin-bottom: 5px;
+                          border: 1px solid var(--main-color);
+                          cursor: pointer;
+                        "
+                        class="hover-0"
+                        v-if="UserAdmin === 'Admin'"
+                      >
+                        <router-link to="/AdminPage"
+                          ><v-list-item-title
+                            class="flex align-center gap-1.5"
+                            style="color: var(--main-color)"
+                          >
+                            <font-awesome-icon :icon="['fas', 'user-tie']" />
+                            <span> الإشراف </span>
+                          </v-list-item-title></router-link
+                        >
+                      </div>
+                      <div
+                        style="
+                          background: #fff;
+                          color: var(--main-color);
+                          padding: 10px;
+                          border-radius: 5px;
+                          margin-bottom: 5px;
+                          border: 1px solid var(--main-color);
+                          cursor: pointer;
+                        "
+                        @click="SignOut"
+                        class="hover-0"
+                      >
                         <v-list-item-title
                           class="flex align-center gap-1.5"
                           style="color: var(--main-color)"
                         >
-                          <font-awesome-icon :icon="['fas', 'id-card']" />
-                          <span> حسابي </span>
-                        </v-list-item-title></router-link
-                      >
+                          <font-awesome-icon
+                            :icon="['fas', 'arrow-right-to-bracket']"
+                          />
+                          <span class="cursor-pointer"> تسجيل خروج </span>
+                        </v-list-item-title>
+                      </div>
                     </div>
                     <div
-                      style="
-                        background: #fff;
-                        color: var(--main-color);
-                        padding: 10px;
-                        border-radius: 5px;
-                        margin-bottom: 5px;
-                        border: 1px solid var(--main-color);
-                        cursor: pointer;
-                      "
-                      class="hover-0"
-                      v-if="UserAdmin === 'Admin'"
-                    >
-                      <router-link to="/AdminPage"
-                        ><v-list-item-title
-                          class="flex align-center gap-1.5"
-                          style="color: var(--main-color)"
-                        >
-                          <font-awesome-icon :icon="['fas', 'user-tie']" />
-                          <span> الإشراف </span>
-                        </v-list-item-title></router-link
-                      >
-                    </div>
-                    <div
-                      style="
-                        background: #fff;
-                        color: var(--main-color);
-                        padding: 10px;
-                        border-radius: 5px;
-                        margin-bottom: 5px;
-                        border: 1px solid var(--main-color);
-                        cursor: pointer;
-                      "
-                      @click="SignOut"
-                      class="hover-0"
-                    >
-                      <v-list-item-title
-                        class="flex align-center gap-1.5"
-                        style="color: var(--main-color)"
-                      >
-                        <font-awesome-icon
-                          :icon="['fas', 'arrow-right-to-bracket']"
-                        />
-                        <span class="cursor-pointer"> تسجيل خروج </span>
-                      </v-list-item-title>
-                    </div>
+                      class="main_popup bg-transparent"
+                      v-if="state"
+                      @click="State"
+                    ></div>
                   </div>
-                  <div
-                    class="main_popup bg-transparent"
-                    v-if="state"
-                    @click="State"
-                  ></div>
                 </div>
               </v-list-item>
             </v-list>
@@ -288,9 +278,11 @@ export default {
     Header() {
       window.onscroll = () => {
         if (window.scrollY === 0) {
-          document.querySelector(".Header").style.background = "transparent";
+          document.querySelector(".Header").style.cssText =
+            "background: transparent; border-bottom:1px solid transparent;box-shadow: 0 0 0 #ddd";
         } else {
-          document.querySelector(".Header").style.background = "#fff";
+          document.querySelector(".Header").style.cssText =
+            "background: #fff; border-bottom: 1px solid #ddd;box-shadow: 0 0 10px #ddd;";
         }
       };
     },
@@ -401,6 +393,12 @@ export default {
 }
 .Header {
   transition: 0.5s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  z-index: 100;
 }
 .v-list-item-title {
   transition: 00.3s;

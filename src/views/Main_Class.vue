@@ -1,6 +1,10 @@
 <template>
-  <div class="Main_Class pt-2.5">
-    <div class="container">
+  <div
+    id="Main_Class"
+    class="Main_Class pt-2.5"
+    style="margin-top: -20px; padding-bottom: 50px"
+  >
+    <div class="container relative" style="padding-top: 160px">
       <AddSub
         v-if="showAddSub"
         @Close="CloseAndOpenAddSub"
@@ -23,23 +27,32 @@
         </nav>
         <div
           @click="CloseAndOpenAddSub"
-          class="flex items-center gap-2.5 p-2.5 bg-[#fff] rounded cursor-pointer"
+          class="flex items-center gap-2.5 p-2.5 bg-[#fff] rounded cursor-pointer hover-0"
           v-if="UserAdmin === 'Admin'"
+          style="
+            border: 1px solid var(--main-color);
+            margin: 10px;
+            color: var(--main-color);
+            font-weight: bold;
+            font-size: 14px;
+          "
         >
           <font-awesome-icon :icon="['fas', 'plus']" />
           <span>أضف مادة</span>
         </div>
       </nav>
-      <section class="flex justify-between p-2.5 gap-2.5">
-        <div class="w-48 p-2.5 text-center cursor-pointer" @click="AllTest">
-          شراء اختبارات {{ Class }} كاملة
-        </div>
-        <div class="w-48 p-2.5 text-center cursor-pointer" @click="AllCourses">
-          شراء كورسات {{ Class }} كاملة
-        </div>
-      </section>
+
       <div style="min-height: 58vh" class="mt-2.5">
-        <div class="text-left my-2.5 p-2.5 text-[--main-color]">
+        <div
+          class="text-right my-2.5 p-2.5 text-[--main-color] font-bold"
+          style="
+            background: #fff;
+            width: fit-content;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px #ddd;
+          "
+        >
           ({{ AllData.length }}) مادة
         </div>
         <div
@@ -55,6 +68,7 @@
             class="main_box w-48 border-1 p-2.5 rounded relative"
             v-for="(Data, index) in AllData"
             :key="Data"
+            style="background: #ffffffa1; box-shadow: 0 0 10px #ddd"
           >
             <font-awesome-icon
               :icon="['fas', 'pen-to-square']"
@@ -94,9 +108,45 @@
                 <span class="text-[--main-color]">تحميل كتاب المادة</span>
               </a>
 
-              <div class="cursor-pointer w-48 mb-2.5">
+              <div
+                class="cursor-pointer w-48 mb-2.5"
+                :class="UserAdmin !== 'Admin' ? 'pointer-events-none' : ''"
+                v-if="UserAdmin === 'Admin'"
+              >
                 <router-link
-                  to="/Main_Testing"
+                  :to="UserAdmin !== 'Admin' ? '' : '/Main_Testing'"
+                  class="border-1 border-[--main-color] flex items-center justify-center gap-2.5 p-2.5 rounded hover-0"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'clipboard-question']"
+                    class="text-[dimgrey]"
+                  />
+                  <span class="text-[dimgrey]"> الإختبارات </span>
+                </router-link>
+              </div>
+              <div
+                class="cursor-pointer w-48 mb-2.5"
+                :class="UserAdmin !== 'User' ? 'pointer-events-none' : ''"
+                v-if="UserAdmin === 'User'"
+              >
+                <router-link
+                  :to="UserAdmin !== 'User' ? '' : '/Main_Testing'"
+                  class="border-1 border-[--main-color] flex items-center justify-center gap-2.5 p-2.5 rounded hover-0"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'clipboard-question']"
+                    class="text-[dimgrey]"
+                  />
+                  <span class="text-[dimgrey]"> الإختبارات </span>
+                </router-link>
+              </div>
+              <div
+                class="cursor-pointer w-48 mb-2.5"
+                :class="UserAdmin !== 'Admin' ? 'pointer-events-none' : ''"
+                v-if="UserAdmin !== 'User' && UserAdmin !== 'Admin'"
+              >
+                <router-link
+                  :to="UserAdmin !== 'Admin' ? '' : '/Main_Testing'"
                   class="border-1 border-[--main-color] flex items-center justify-center gap-2.5 p-2.5 rounded hover-0"
                 >
                   <font-awesome-icon
@@ -112,7 +162,12 @@
                 class="border p-1 input1 pointer-events-none"
                 :value="Data.BookLink"
                 v-if="UserAdmin === 'Admin'"
-                style="height: 26px; width: 100%"
+                style="
+                  height: 26px;
+                  width: 100%;
+                  padding: 10px !important;
+                  border-radius: 5px;
+                "
               />
             </div>
             <div
@@ -339,91 +394,235 @@
           </div>
         </div>
       </div>
-      <div class="main_Overlay" v-if="Close"></div>
+      <div class="main_Overlay" v-if="Close" style="z-index: 101"></div>
       <div
-        class="popup rounded p-2.5 bg-white fixed -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-auto h-1/2 z-20 w-1/2"
+        class="popup_2 rounded p-2.5 bg-white fixed -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-auto z-20"
         v-if="Close"
-        style="height: 387px"
+        style="width: 90%; font-family: system-ui; z-index: 101"
       >
-        <div class="header flex justify-between items-center p-2.5">
+        <div
+          class="header flex justify-between items-center p-2.5"
+          style="
+            font-size: 20px;
+            color: var(--main-color);
+            font-weight: bold;
+            background: #fafafa;
+            margin-bottom: 10px;
+            border-radius: 5px;
+          "
+        >
           <div class="flex items-center gap-2.5">
             <font-awesome-icon :icon="['fas', 'file-invoice-dollar']" />
-            <span>فاتورة</span>
+            <span>فاتورة شراء</span>
           </div>
           <font-awesome-icon :icon="['fas', 'xmark']" @click="Close = false" />
         </div>
         <div class="body">
-          <div class="flex items-center justify-center">
-            <div class="w-24 text-center table_1">الدراسة</div>
-
-            <strong class="table_2">{{ BillType }}</strong>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-24 text-center table_1">القسم</div>
-            <strong class="table_2">{{ BillLang }}</strong>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-24 text-center table_1">الفرقة</div>
-            <strong class="table_2">{{ BillClass }}</strong>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-24 text-center table_1">الصنف</div>
-
-            <strong class="table_2">{{ BillName }}</strong>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-24 text-center table_1">السعر</div>
-
-            <strong class="table_2 flex gap-2.5"
-              >{{ BillPrice || 0 }} <span>جنية مصري</span></strong
-            >
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-24 text-center table_1">المادة</div>
-
-            <strong class="table_2">{{ SubName }}</strong>
-          </div>
-          <table>
+          <table border="1" width="100%">
             <tbody>
               <tr>
                 <td>الدراسة</td>
                 <td>{{ BillType }}</td>
               </tr>
+
               <tr>
                 <td>القسم</td>
                 <td>{{ BillLang }}</td>
               </tr>
               <tr>
                 <td>الفرقة</td>
-                <td></td>
+                <td>{{ BillClass }}</td>
               </tr>
               <tr>
-                <td></td>
-                <td></td>
+                <td>الصنف</td>
+                <td>{{ BillName }}</td>
               </tr>
-              <!-- Add more rows as needed -->
+              <tr>
+                <td>السعر</td>
+                <td style="flex gap-2.5 items-center">
+                  {{ BillPrice || 0 }} <span>جنية مصري</span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
-        <div class="footer flex justify-between">
+        <div class="footer flex flex-col">
           <div
-            class="pay bg-[--main-color] p-2.5 cursor-pointer text-white text-center mt-2.5 w-48"
+            class="pay p-2.5 cursor-pointer text-center mt-5 hover-0"
             @click="pay1"
+            style="
+              width: 100%;
+              gap: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 1px solid var(--main-color);
+              border-radius: 5px;
+              color: var(--main-color);
+              font-weight: bold;
+              font-size: 20px;
+            "
           >
             <font-awesome-icon :icon="['fas', 'credit-card']" />
-            <span> أدفع بالكارت </span>
+            <span> شراء بالكارت الذكي </span>
+          </div>
+          <a
+            class="steps"
+            href="https://www.youtube.com/watch?v=WQsMQ9wtq_4"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              background: #fafafa;
+              padding: 10px;
+              margin-top: 10px;
+              border-radius: 5px;
+              cursor: pointer;
+              color: #ff0000 !important;
+              font-weight: bold;
+              font-size: 14px;
+            "
+          >
+            <font-awesome-icon :icon="['fab', 'youtube']" color="#ff0000" />
+            <div>خطوات تحويل فودافون كاش لكارت ذكي لمدة 24 ساعة</div>
+          </a>
+        </div>
+      </div>
+      <section class="flex justify-between gap-2.5 mt-2.5">
+        <div class="w-48 p-2.5 text-center cursor-pointer" @click="AllTest">
+          شراء اختبارات {{ Class }}
+        </div>
+        <div
+          class="w-48 p-2.5 text-center cursor-pointer"
+          @click="PayAllCourseFunction"
+        >
+          حجز كورسات {{ Class }}
+        </div>
+      </section>
+      <div
+        class="main_Overlay"
+        v-if="PayAllCourse"
+        @click="PayAllCourseFunction"
+      ></div>
+      <div
+        v-if="PayAllCourse"
+        class="PayAllCourse rounded p-2.5 bg-white fixed -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-auto z-20"
+        style="width: 90%"
+      >
+        <div
+          class="header flex align-center justify-between bg-[#fafafa] p-2.5"
+        >
+          <span
+            style="
+              font-size: 23px;
+              color: var(--main-color);
+              font-weight: bold;
+              font-family: system-ui;
+            "
+            >حجز الكورسات</span
+          >
+          <font-awesome-icon
+            :icon="['fas', 'xmark']"
+            @click="PayAllCourseFunction"
+            style="
+              font-size: 23px;
+              color: var(--main-color);
+              font-weight: bold;
+              font-family: system-ui;
+            "
+          />
+        </div>
+        <div class="body flex mt-2.5 justify-between align-center">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              background: #fff;
+              padding: 10px;
+              width: 48%;
+              border: 1px solid var(--main-color);
+              border-radius: 5px;
+              color: var(--main-color);
+            "
+          >
+            <div
+              class="title"
+              style="font-size: 20px; font-weight: bold; font-family: system-ui"
+            >
+              حجز كورسات الأونلاين
+            </div>
+            <div
+              class="flex align-center justify-between font-bold"
+              style="background: #fafafa; padding: 10px; border-radius: 5px"
+            >
+              <div class="num">01016317083</div>
+
+              <div
+                class="flex color align-center justify-between gap-2.5 bg-[#fff] p-2.5 rounded cursor-pointer"
+                @click="copyTextDad($event)"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'copy']"
+                  @click="copyTextSvg($event)"
+                />
+                <span @click="copyText($event)">نسخ الرقم</span>
+              </div>
+            </div>
           </div>
           <div
-            class="pay bg-[--main-color] p-2.5 cursor-pointer text-white text-center mt-2.5 w-48"
-            @click="pay_1"
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              background: #fff;
+              padding: 10px;
+              width: 48%;
+              border: 1px solid var(--main-color);
+              border-radius: 5px;
+              color: var(--main-color);
+            "
           >
-            <font-awesome-icon :icon="['fas', 'money-bill']" />
-            <span> أدفع بفودافون كاش </span>
+            <div
+              class="title"
+              style="font-size: 20px; font-weight: bold; font-family: system-ui"
+            >
+              حجز كورسات الأوفلاين
+            </div>
+            <div
+              class="flex align-center justify-between font-bold"
+              style="background: #fafafa; padding: 10px; border-radius: 5px"
+            >
+              <div class="num">01555067049</div>
+              <div
+                class="flex color align-center justify-between gap-2.5 bg-[#fff] p-2.5 rounded cursor-pointer"
+                @click="copyTextDad($event)"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'copy']"
+                  @click="copyTextSvg($event)"
+                />
+                <span @click="copyText($event)">نسخ الرقم</span>
+
+                <v-snackbar v-model="snackbar" :timeout="timeout">
+                  {{ text }}
+
+                  <template v-slot:actions>
+                    <v-btn
+                      color="blue"
+                      variant="text"
+                      @click="snackbar = false"
+                    >
+                      إغلاق
+                    </v-btn>
+                  </template>
+                </v-snackbar>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div @click="ThePay">ThePay</div>
   </div>
 </template>
 
@@ -491,7 +690,10 @@ export default {
       )} ${localStorage.getItem("username_3")}
        
        `,
-      // UserAdmin: "Admin",
+      PayAllCourse: null,
+      snackbar: false,
+      text: "تم نسخ الرقم للحافظة",
+      timeout: 2000,
     };
   },
   props: ["Main_Id"],
@@ -502,6 +704,9 @@ export default {
   },
   mounted() {
     setTimeout(() => {
+      location.href = `${location.href}#Main_Class`;
+    }, 10);
+    setTimeout(() => {
       this.getvalues();
     }, 10);
     setTimeout(() => {
@@ -509,6 +714,43 @@ export default {
     }, 100);
   },
   methods: {
+    copyTextSvg(event) {
+      event.stopPropagation();
+      event.target.parentElement.parentElement.classList.add("green");
+      setTimeout(() => {
+        event.target.parentElement.parentElement.classList.remove("green");
+      }, 5000);
+
+      navigator.clipboard.writeText(
+        event.target.parentElement.parentElement.children[0].innerHTML
+      );
+      this.snackbar = true;
+    },
+    copyText(event) {
+      event.stopPropagation();
+      event.target.parentElement.classList.add("green");
+      setTimeout(() => {
+        event.target.parentElement.classList.remove("green");
+      }, 5000);
+      navigator.clipboard.writeText(
+        event.target.parentElement.parentElement.children[0].innerHTML
+      );
+      this.snackbar = true;
+    },
+    copyTextDad(event) {
+      event.stopPropagation();
+      event.target.classList.add("green");
+      setTimeout(() => {
+        event.target.classList.remove("green");
+      }, 5000);
+      navigator.clipboard.writeText(
+        event.target.parentElement.children[0].innerHTML
+      );
+      this.snackbar = true;
+    },
+    PayAllCourseFunction() {
+      this.PayAllCourse = !this.PayAllCourse;
+    },
     AllTest() {
       this.SubName = `جميع اختبارات ${this.Class}`;
       this.BillPrice = 100;
@@ -812,13 +1054,13 @@ export default {
 
     async Updata() {
       let input1 = document.querySelectorAll(".main_box  input.input1");
-      let input2 = document.querySelectorAll(".main_box  input.input2");
-      let input3 = document.querySelectorAll(".main_box  input.input3");
-      let input4 = document.querySelectorAll(".main_box  input.input4");
-      let input5 = document.querySelectorAll(".main_box  input.input5");
-      let input6 = document.querySelectorAll(".main_box  input.input6");
-      let input7 = document.querySelectorAll(".main_box  input.input7");
-      let input8 = document.querySelectorAll(".main_box  input.input8");
+      // let input2 = document.querySelectorAll(".main_box  input.input2");
+      // let input3 = document.querySelectorAll(".main_box  input.input3");
+      // let input4 = document.querySelectorAll(".main_box  input.input4");
+      // let input5 = document.querySelectorAll(".main_box  input.input5");
+      // let input6 = document.querySelectorAll(".main_box  input.input6");
+      // let input7 = document.querySelectorAll(".main_box  input.input7");
+      // let input8 = document.querySelectorAll(".main_box  input.input8");
       let sentence = localStorage.getItem("updateType");
       let words = sentence.split(" ");
       let firstWord = words[0];
@@ -831,13 +1073,13 @@ export default {
       );
       await updateDoc(washingtonRef, {
         BookLink: input1[this.num].value,
-        FreeCourse_Video: input2[this.num].value,
-        FreeCourse_Pdf_1: input3[this.num].value,
-        FreeCourse_Pdf_2: input4[this.num].value,
-        CachCourse_Video: input5[this.num].value,
-        CachCourse_PdfPrice_1: input6[this.num].value,
-        CachCourse_PdfPrice_2: input7[this.num].value,
-        AllCourse: input8[this.num].value,
+        // FreeCourse_Video: input2[this.num].value,
+        // FreeCourse_Pdf_1: input3[this.num].value,
+        // FreeCourse_Pdf_2: input4[this.num].value,
+        // CachCourse_Video: input5[this.num].value,
+        // CachCourse_PdfPrice_1: input6[this.num].value,
+        // CachCourse_PdfPrice_2: input7[this.num].value,
+        // AllCourse: input8[this.num].value,
       });
       this.getdata();
     },
@@ -922,6 +1164,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.Main_Class {
+  background-image: url("../assets/WhatsApp Image 2023-12-04 at 11.00.58 PM.jpeg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+}
+.popup_2 {
+  background-image: url("../assets/WhatsApp Image 2023-12-04 at 11.00.58 PM.jpeg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+}
 section {
   div {
     border: 1px solid var(--main-color);
@@ -937,9 +1191,14 @@ section {
   }
 }
 nav {
-  background: #fafafa;
-  padding: 10px;
+  background: #fff;
+  padding: 15px;
   border-radius: 5px;
+  font-size: 14px;
+  &.nav_1 {
+    padding: 0;
+    box-shadow: 0 0 10px #ddd;
+  }
   nav ol.breadcrumb {
     margin: 0 !important;
     li {
@@ -996,7 +1255,18 @@ nav {
     border-top: 1px solid var(--main-color);
   }
 }
-
+.green {
+  color: #3fbb3f !important;
+}
+table th,
+td {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: var(--main-color);
+  width: 50%;
+  font-weight: bold;
+}
 @media (min-width: 1200px) {
 }
 
@@ -1007,6 +1277,32 @@ nav {
 }
 
 @media (max-width: 767px) {
+  .book {
+    flex-direction: column;
+    & > div,
+    a {
+      width: 100%;
+    }
+  }
+  .PayAllCourse .body {
+    flex-direction: column;
+    gap: 10px;
+    & > div {
+      width: 100% !important;
+      div {
+        // flex-direction: column;
+        & > div {
+          // width: 100%;
+        }
+      }
+    }
+  }
+  .Main_Class {
+    margin-top: -20px !important;
+    .container {
+      padding-top: 123px !important;
+    }
+  }
   .body .main_box {
     width: 100% !important;
   }

@@ -1,6 +1,9 @@
 <template>
-  <div class="Main_Testing CC pt-2.5">
-    <div class="container">
+  <div
+    class="Main_Testing CC pt-2.5"
+    style="margin-top: -20px; padding-bottom: 50px"
+  >
+    <div class="container relative" style="padding-top: 160px">
       <AddTest
         @Close="CloseAndOpenAddTest"
         @GetData="GetData"
@@ -9,7 +12,7 @@
       <ShowTest @Close="Close" v-if="ShowTest" :TestIndex="this.TestIndex" />
       <nav
         aria-label="breadcrumb"
-        class="flex items-center justify-between mb-2.5"
+        class="nav_1 flex items-center justify-between"
       >
         <nav aria-label="breadcrumb">
           <MDBBreadcrumb>
@@ -26,9 +29,19 @@
           </MDBBreadcrumb>
         </nav>
         <span
-          class="bg-[#eee] p-2.5 rounded cursor-pointer flex items-center gap-2.5"
+          class="bg-[#fff] p-2.5 rounded cursor-pointer flex items-center gap-2.5 hover-0"
           @click="CloseAndOpenAddTest"
           v-if="UserAdmin === 'Admin'"
+          style="
+            border: 1px solid var(--main-color);
+            margin: 10px;
+            color: var(--main-color);
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
         >
           <font-awesome-icon :icon="['fas', 'plus']" />
           <span>اضف اختبار</span>
@@ -36,7 +49,19 @@
 
         <!-- @click="CloseAndOpenAddSub" -->
       </nav>
-      <div class="data flex flex-wrap gap-2.5 justify-between">
+      <div
+        class="text-right my-2.5 p-2.5 text-[--main-color] font-bold"
+        style="
+          background: #fff;
+          width: fit-content;
+          border-radius: 5px;
+          padding: 10px;
+          box-shadow: 0 0 10px #ddd;
+        "
+      >
+        ({{ AllTest.length }}) اختبار
+      </div>
+      <div class="data flex flex-wrap gap-2.5 justify-between mt-2.5">
         <img
           src="../assets/animation_lolk2w1w_small.gif"
           alt="animation"
@@ -45,9 +70,14 @@
         />
         <div v-if="ShowMsg" class="text-center">{{ MsgEmpty }}</div>
         <div
-          class="box border p-2.5 rounded w-32"
+          class="box w-48 border-1 p-2.5 rounded relative"
           v-for="(test, index) in AllTest"
           :key="index"
+          style="
+            background: #ffffffa1;
+            box-shadow: 0 0 10px #ddd;
+            font-family: system-ui;
+          "
         >
           <div class="flex justify-between">
             <div
@@ -75,6 +105,9 @@
                   font-weight: bold;
                   font-family: system-ui;
                   color: var(--main-color);
+                  background: #eee;
+                  padding: 10px;
+                  border-radius: 5px;
                 "
               >
                 {{ test.Type }}
@@ -82,9 +115,19 @@
             </div>
           </div>
           <div
+            style="
+              font-size: 18px;
+              margin: 10px 0;
+              font-weight: bold;
+              color: #595555;
+            "
+          >
+            ميعاد بدأ الإختبار
+          </div>
+          <div
             class="flex gap-2.5 items-center"
             style="
-              ackground: #fafafa;
+              background: #eee;
               padding: 10px;
               border-radius: 5px;
               font-weight: bold;
@@ -98,7 +141,7 @@
           <div
             class="flex gap-2.5 items-center"
             style="
-              ackground: #fafafa;
+              background: #eee;
               padding: 10px;
               border-radius: 5px;
               font-weight: bold;
@@ -110,19 +153,20 @@
             <p class="Date">{{ test.Date }}</p>
           </div>
           <div
-            class="btn"
+            class="mt-2.5 hover-0"
             style="
               color: var(--main-color);
               font-size: 15px;
               border: 1px solid var(--main-color);
-              padding: 0;
-              height: 35px;
-              width: 100px;
+              height: 45px;
+              width: 106px;
               display: flex;
               align-items: center;
               justify-content: center;
               font-weight: bold;
               cursor: pointer;
+              border-radius: 5px;
+              font-size: 16px;
             "
             @click="CheckTimeAndData(index)"
           >
@@ -351,10 +395,22 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.Main_Testing {
+  background-image: url("../assets/WhatsApp Image 2023-12-04 at 11.00.58 PM.jpeg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+}
+
 nav {
-  background: #fafafa;
-  padding: 10px;
+  background: #fff;
+  padding: 15px;
   border-radius: 5px;
+  font-size: 14px;
+  &.nav_1 {
+    padding: 0;
+    box-shadow: 0 0 10px #ddd;
+  }
   nav ol.breadcrumb {
     margin: 0 !important;
     li {
