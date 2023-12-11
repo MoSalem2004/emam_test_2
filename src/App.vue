@@ -101,6 +101,7 @@ p {
 .bcolor {
   background: var(--main-color);
 }
+
 .hover-0 {
   transition: 0.3s;
 }
