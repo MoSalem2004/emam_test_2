@@ -5,7 +5,7 @@
       <v-card class="mx-auto" width="100%">
         <v-card-title
           style="padding: 10px"
-          class="text-h6 font-weight-regular justify-space-between mb-2.5 hover-0"
+          class="text-h6 font-weight-regular justify-space-between mb-2.5"
         >
           <v-avatar v-text="step"></v-avatar>
           <span

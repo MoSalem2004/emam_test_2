@@ -394,6 +394,11 @@ export default {
   &:not(:last-child) {
     border-bottom: 1px solid #eee;
   }
+  &:hover {
+    // transform: translateX(7px);
+    // background: #fafafa;
+  }
+}
 .Header {
   transition: 0.5s;
 }

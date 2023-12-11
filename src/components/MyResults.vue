@@ -8,7 +8,7 @@
     />
     <div v-if="ShowMyResult1" class="Msg">لا توجد نتائج لك</div>
     <div
-      class="box border p-2.5 Main_Box w-32 rounded"
+      class="box border p-2.5 Main_Box w-32 rounded bg-[#ffffff6e]"
       v-for="(Subject, index) in Subjects"
       :key="Subject"
     >
